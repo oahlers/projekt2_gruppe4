@@ -2,6 +2,7 @@ package com.example.projekt2_gruppe4.controller;
 
 import com.example.projekt2_gruppe4.model.Product;
 import com.example.projekt2_gruppe4.repository.ProductRepository;
+import com.example.projekt2_gruppe4.service.ProductService;
 import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ public class ProductController {
 
     @Autowired
     ProductRepository productRepo;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/getCreateProduct")
     public String CreateProduct(){
@@ -26,9 +29,10 @@ public class ProductController {
                                     @RequestParam ("description") String description,
                                     @RequestParam ("price") double price){
         String img=null;
-        //MANGLER if-else statements ift produkter(images) - skal sættes ind i service (se video 2)//
+
+        //MANGLER if-else statements ift produkter(images) - skal sættes ind i service (se video 2) - kan først laves når html er lavet//
         Product product = new Product(name, description, price, img);
-        productRepo.save(product);
+        productRepo.saveProduct(product);
         return "redirect:/";
     }
 
