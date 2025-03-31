@@ -1,0 +1,71 @@
+package com.example.projekt2_gruppe4.controller;
+
+import com.example.projekt2_gruppe4.model.Product;
+import com.example.projekt2_gruppe4.repository.ProductRepository;
+import org.apache.coyote.Request;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class ProductController {
+
+    @Autowired
+    ProductRepository productRepo;
+
+    @GetMapping("/getCreateProduct")
+    public String CreateProduct(){
+        return "createProduct";
+    }
+
+    @PostMapping("/saveCreteProduct")
+    public String postCreateProduct(@RequestParam ("name") String name,
+                                    @RequestParam ("description") String description,
+                                    @RequestParam ("price") double price){
+        String img=null;
+        //MANGLER if-else statements ift produkter(images) - skal sættes ind i service (se video 2)//
+        Product product = new Product(name, description, price, img);
+        productRepo.save(product);
+        return "redirect:/";
+    }
+
+    @GetMapping("/getUpdateProduct")
+    public String UpdateProduct(@RequestParam("id") int id, Model model){
+        Product product = productRepo.getProductById(id);
+        model.addAttribute(product);
+        return "updateProduct";
+    }
+
+    @PostMapping("/saveUpdateProduct")
+    public String postUpdateProduct(@RequestParam ("id") int id,
+                                    @RequestParam ("name") String name,
+                                    @RequestParam ("description") String description,
+                                    @RequestParam ("price") double price) {
+        String img = productService.getImg(name, description); //virker først når Service er fixed
+        Product product = new Product(id, name, description, price, img);
+        productRepo.update(product);
+        return "redirect:/";
+    }
+    
+
+    @GetMapping("/showProduct")
+    public String showProduct(@RequestParam("id") int id, Model model) {
+
+        Product product = productRepo.getProductById(id);
+        model.addAttribute("product", product);
+
+        return "product";
+    }
+
+    @PostMapping("/deleteProduct")
+    public String deleteProduct(@RequestParam ("id") int id) {
+
+        productRepo.deleteProduct(id);
+
+        return "redirect:/";
+    }
+
+}
