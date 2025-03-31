@@ -7,5 +7,31 @@
 </head>
 <body>
 
+<div class="container" >
+    <div class="square" th:each="car : ${carList}">
+
+        <div>
+            <label>ID:</label>
+            <span th:text="${product.id}">ID</span>
+        </div>
+
+        <div>
+            <label>Name:</label>
+            <span th:text="${product.name}">ID</span>
+        </div>
+
+        <div>
+            <label>Description:</label>
+            <span th:text="${product.description}">type</span>
+        </div>
+
+        <div>
+            <label>Price:</label>
+            <span th:text="${product.price}">colour</span>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
