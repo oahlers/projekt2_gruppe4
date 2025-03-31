@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{style.css}">
+    <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>
 <body>
 
-<div class="container" >
+<div class="navbarTop" >
+    <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="showWishlist.html">Show my wishlists</a></li>
+        <li><a href="contactUs.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+    </ul>
+</div>
+
+<div class="productContainer" >
     <div class="square" th:each="product : ${productList}">
 
         <div>
@@ -22,12 +31,12 @@
 
         <div>
             <label>Description:</label>
-            <span th:text="${product.description}">type</span>
+            <span th:text="${product.description}">description</span>
         </div>
 
         <div>
             <label>Price:</label>
-            <span th:text="${product.price}">colour</span>
+            <span th:text="${product.price}">price</span>
         </div>
 
     </div>
