@@ -44,45 +44,76 @@ public class ProductRepository {
         return tempProductList;
     }
 
-    /*public Product getProductById(int id){
-        for (Product product: initData.getProductList()) {
-            if (product.getId() == id) {
-                return product;
+    public Product getProductById(int id){
+        Product product = new Product();
+        String sql = "SELECT * FROM product WHERE id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1,id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    product.setId(resultSet.getInt("id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setImage(resultSet.getString("img"));
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
             }
-        }
-        return null;
+        }return product;
     }
 
     public void deleteProduct(int id){
-        Product product = getProductById(id);
-        initData.getProductList().remove(product);
+        String sql = "DELETE FROM product WHERE id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1,id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveProduct(Product product){
-        ArrayList<Product> productList = initData.getProductList();
-        int newID;
+        String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
 
-        if (productList.isEmpty()) {
-            newID = 1;
-        }else {
-            newID = productList.getLast().getId() +1;
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            //forstår ikke fejlen her. hjælp gerne?? (video 4 omkring min10)
+            statement.setString(product.getName());
+            statement.setString(product.getDescription());
+            statement.setDouble(product.getPrice());
+            statement.setString(product.getImage());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        product.setId(newID);
-        productList.add(product);
     }
 
     public void update (Product updatedProduct){
-         ArrayList<Product> productList = initData.getProductList();
+        String sql = "UPDATE product SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
 
-        for (int i = 0; i < productList.size(); i++) {
-            if (productList.get(i).getId() == updatedProduct.getId()) {
-                productList.set(i, updatedProduct);
-                return;
-            }
-            
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(updatedProduct.getName());
+            statement.setString(updatedProduct.getDescription());
+            statement.setDouble(updatedProduct.getPrice());
+            statement.setString(updatedProduct.getImage());
+            statement.setInt(updatedProduct.getId());
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
-
-    }*/
+    }
 
 }
