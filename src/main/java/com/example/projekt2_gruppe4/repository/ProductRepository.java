@@ -20,7 +20,7 @@ public class ProductRepository {
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> tempProductList = new ArrayList<>();
 
-        String sql = "SELECT * FROM product";
+        String sql = "SELECT * FROM products";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class ProductRepository {
 
     public Product getProductById(int id) throws SQLException {
         Product product = new Product();
-        String sql = "SELECT * FROM product WHERE id = ?";
+        String sql = "SELECT * FROM products WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -64,7 +64,7 @@ public class ProductRepository {
     }
 
     public void deleteProduct(int id){
-        String sql = "DELETE FROM product WHERE id = ?";
+        String sql = "DELETE FROM products WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -96,7 +96,7 @@ public class ProductRepository {
     }
 
     public void update (Product updatedProduct){
-        String sql = "UPDATE product SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
+        String sql = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
