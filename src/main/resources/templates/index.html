@@ -18,7 +18,7 @@
 
 <div class="productContainer" >
     <div class="square" th:each="product : ${productList}">
-
+        <img th:src="@{'/img/' + ${product.image}}" alt="Product Image">
         <div>
             <label>ID:</label>
             <span th:text="${product.id}">ID</span>

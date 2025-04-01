@@ -3,7 +3,6 @@ package com.example.projekt2_gruppe4.controller;
 import com.example.projekt2_gruppe4.model.Product;
 import com.example.projekt2_gruppe4.repository.ProductRepository;
 import com.example.projekt2_gruppe4.service.ProductService;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +29,7 @@ public class ProductController {
                                     @RequestParam ("price") double price){
         String img=null;
 
-        //MANGLER if-else statements ift produkter(images) - skal sættes ind i service (se video 2) - kan først laves når html er lavet//
+        //(se video 2) - fixed med temps - images kommer først når .html er lavet//
         Product product = new Product(name, description, price, img);
         productRepo.saveProduct(product);
         return "redirect:/";
