@@ -1,6 +1,5 @@
 package com.example.projekt2_gruppe4.repository;
 
-import com.example.projekt2_gruppe4.config.InitData;
 import com.example.projekt2_gruppe4.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 @Repository
 public class ProductRepository {
 
-    @Autowired
-    InitData initData;
 
     @Autowired
     private DataSource dataSource;
@@ -44,7 +41,7 @@ public class ProductRepository {
         return tempProductList;
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) throws SQLException {
         Product product = new Product();
         String sql = "SELECT * FROM product WHERE id = ?";
 
@@ -87,10 +84,10 @@ public class ProductRepository {
         PreparedStatement statement = connection.prepareStatement(sql)) {
 
             //forstår ikke fejlen her. hjælp gerne?? (video 4 omkring min10)
-            statement.setString(product.getName());
-            statement.setString(product.getDescription());
-            statement.setDouble(product.getPrice());
-            statement.setString(product.getImage());
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getImage());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -104,11 +101,11 @@ public class ProductRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(updatedProduct.getName());
-            statement.setString(updatedProduct.getDescription());
-            statement.setDouble(updatedProduct.getPrice());
-            statement.setString(updatedProduct.getImage());
-            statement.setInt(updatedProduct.getId());
+            statement.setString(1, updatedProduct.getName());
+            statement.setString(2, updatedProduct.getDescription());
+            statement.setDouble(3, updatedProduct.getPrice());
+            statement.setString(4, updatedProduct.getImage());
+            statement.setInt(5, updatedProduct.getId());
 
             statement.executeUpdate();
         }catch (SQLException e){

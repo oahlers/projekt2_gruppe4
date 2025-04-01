@@ -1,6 +1,5 @@
 package com.example.projekt2_gruppe4.controller;
 
-import com.example.projekt2_gruppe4.config.InitData;
 import com.example.projekt2_gruppe4.model.Product;
 import com.example.projekt2_gruppe4.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,6 @@ import java.util.ArrayList;
 @Controller
 public class PageController {
 
-    @Autowired
-    InitData initData;
 
     @Autowired
     ProductRepository productRepo;

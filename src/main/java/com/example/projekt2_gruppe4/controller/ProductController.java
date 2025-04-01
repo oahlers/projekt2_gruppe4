@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.SQLException;
+
 @Controller
 public class ProductController {
 
@@ -36,7 +38,7 @@ public class ProductController {
     }
 
     @GetMapping("/getUpdateProduct")
-    public String UpdateProduct(@RequestParam("id") int id, Model model){
+    public String UpdateProduct(@RequestParam("id") int id, Model model) throws SQLException {
         Product product = productRepo.getProductById(id);
         model.addAttribute(product);
         return "updateProduct";
@@ -55,7 +57,7 @@ public class ProductController {
     
 
     @GetMapping("/showProduct")
-    public String showProduct(@RequestParam("id") int id, Model model) {
+    public String showProduct(@RequestParam("id") int id, Model model) throws SQLException {
 
         Product product = productRepo.getProductById(id);
         model.addAttribute("product", product);
