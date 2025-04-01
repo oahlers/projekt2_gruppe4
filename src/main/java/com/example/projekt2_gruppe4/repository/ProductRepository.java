@@ -5,6 +5,11 @@ import com.example.projekt2_gruppe4.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Repository
@@ -13,7 +18,33 @@ public class ProductRepository {
     @Autowired
     InitData initData;
 
-    public Product getProductById(int id){
+    @Autowired
+    private DataSource dataSource;
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> tempProductList = new ArrayList<>();
+
+        String sql = "SELECT * FROM product";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setDescription(resultSet.getString("description"));
+                product.setPrice(resultSet.getDouble("price"));
+                product.setImage(resultSet.getString("img"));
+                tempProductList.add(product);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return tempProductList;
+    }
+
+    /*public Product getProductById(int id){
         for (Product product: initData.getProductList()) {
             if (product.getId() == id) {
                 return product;
@@ -52,6 +83,6 @@ public class ProductRepository {
             
         }
 
-    }
+    }*/
 
 }

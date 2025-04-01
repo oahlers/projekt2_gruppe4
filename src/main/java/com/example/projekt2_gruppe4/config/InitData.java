@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-@Component
+/*@Component
 public class InitData {
 
     private ArrayList<Product> productList = new ArrayList<>();
@@ -18,6 +18,6 @@ public class InitData {
         productList.add(new Product(5, "Sprite", "Den kan drikkes", 18, "sprite.webp"));
     }
 
-    public ArrayList<Product> getProductList() { return productList;
+    //public ArrayList<Product> getProductList() { return productList;
     }
-}
+}*/

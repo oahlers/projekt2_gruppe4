@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+/*@Controller
 public class ProductController {
 
     @Autowired
@@ -71,4 +71,4 @@ public class ProductController {
         return "redirect:/";
     }
 
-}
+}*/
