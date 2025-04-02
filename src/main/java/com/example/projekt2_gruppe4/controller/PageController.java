@@ -14,13 +14,6 @@ import java.util.ArrayList;
 @Controller
 public class PageController {
 
-
-    @RequestMapping("/error")
-    public String handleError(HttpServletRequest request) {
-        // Add custom error handling logic here
-        return "error"; // Create error.html in templates
-    }
-
     @Autowired
     ProductRepository productRepo;
 
