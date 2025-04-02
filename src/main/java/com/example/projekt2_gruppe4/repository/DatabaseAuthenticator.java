@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Repository
+/*@Repository
 public class DatabaseAuthenticator {
     private static DataSource dataSource;
 
@@ -36,3 +36,6 @@ public class DatabaseAuthenticator {
         throw new AuthenticationException("Invald username and password");
     }
 }
+
+
+ */

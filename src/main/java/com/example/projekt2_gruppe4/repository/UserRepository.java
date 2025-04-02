@@ -16,3 +16,4 @@ public class UserRepository {
         jdbcTemplate.update(sql, user.getUsername(), user.getPassword());
     }
 }
+
