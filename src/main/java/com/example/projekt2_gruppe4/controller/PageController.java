@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 
 @Controller
+@RequestMapping("/")
 public class PageController {
 
     @Autowired
