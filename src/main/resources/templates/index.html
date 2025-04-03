@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div class="navbarTop" >
+<div class="navbarTop">
     <ul>
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="showWishlist.html">Show my wishlists</a></li>
@@ -16,7 +16,7 @@
     </ul>
 </div>
 
-<div class="productContainer" >
+<div class="productContainer">
     <div class="square" th:each="product : ${productList}">
         <img th:src="@{'/img/' + ${product.image}}" alt="Product Image">
         <div>
@@ -26,19 +26,18 @@
 
         <div>
             <label>Name:</label>
-            <span th:text="${product.name}">ID</span>
+            <span th:text="${product.name}">Name</span>
         </div>
 
         <div>
             <label>Description:</label>
-            <span th:text="${product.description}">description</span>
+            <span th:text="${product.description}">Description</span>
         </div>
 
         <div>
             <label>Price:</label>
-            <span th:text="${product.price}">price</span>
+            <span th:text="${product.price}">Price</span>
         </div>
-
     </div>
 </div>
 
