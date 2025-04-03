@@ -78,7 +78,7 @@ public class ProductRepository {
     }
 
     public void saveProduct(Product product){
-        String sql = "INSERT INTO products (name, description, price, im) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)) {
