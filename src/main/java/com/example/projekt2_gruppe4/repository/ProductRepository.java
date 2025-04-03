@@ -14,12 +14,11 @@ import java.util.ArrayList;
 @Repository
 public class ProductRepository {
 
-
     @Autowired
     private DataSource dataSource;
+
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> tempProductList = new ArrayList<>();
-
         String sql = "SELECT * FROM products";
 
         try (Connection connection = dataSource.getConnection();
@@ -32,11 +31,12 @@ public class ProductRepository {
                 product.setName(resultSet.getString("name"));
                 product.setDescription(resultSet.getString("description"));
                 product.setPrice(resultSet.getDouble("price"));
-                product.setImage(resultSet.getString("img"));
+                product.setImage(resultSet.getString("img")); // Bruger "img" i stedet for "image"
                 tempProductList.add(product);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Fejl ved hentning af produkter: " + e.getMessage());
         }
         return tempProductList;
     }
@@ -46,8 +46,8 @@ public class ProductRepository {
         String sql = "SELECT * FROM products WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1,id);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -55,62 +55,59 @@ public class ProductRepository {
                     product.setName(resultSet.getString("name"));
                     product.setDescription(resultSet.getString("description"));
                     product.setPrice(resultSet.getDouble("price"));
-                    product.setImage(resultSet.getString("img"));
+                    product.setImage(resultSet.getString("img")); // Bruger "img" i stedet for "image"
                 }
-            }catch (SQLException e){
-                e.printStackTrace();
             }
-        }return product;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Fejl ved hentning af produkt med ID " + id + ": " + e.getMessage());
+        }
+        return product;
     }
 
-    public void deleteProduct(int id){
+    public void deleteProduct(int id) {
         String sql = "DELETE FROM products WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1,id);
-
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Fejl ved sletning af produkt med ID " + id + ": " + e.getMessage());
         }
     }
 
-    public void saveProduct(Product product){
+    public void saveProduct(Product product) {
         String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            //forstår ikke fejlen her. hjælp gerne?? (video 4 omkring min10)
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getPrice());
             statement.setString(4, product.getImage());
-
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Fejl ved gemning af produkt: " + e.getMessage());
         }
     }
 
-    public void update (Product updatedProduct){
+    public void update(Product updatedProduct) {
         String sql = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setString(1, updatedProduct.getName());
             statement.setString(2, updatedProduct.getDescription());
             statement.setDouble(3, updatedProduct.getPrice());
             statement.setString(4, updatedProduct.getImage());
             statement.setInt(5, updatedProduct.getId());
-
             statement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Fejl ved opdatering af produkt: " + e.getMessage());
         }
     }
-
 }
