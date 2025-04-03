@@ -19,11 +19,17 @@ public class PageController {
 
     @GetMapping("")
     public String mainPage(Model model) {
-        ArrayList<Product> productList = new ArrayList<>();
-        productList = productRepo.getAllProducts();
+        System.out.println("🔹 mainPage() blev kaldt!");
+
+        ArrayList<Product> productList = productRepo.getAllProducts();
+
+        System.out.println("Antal produkter hentet: " + productList.size());
+        for (Product p : productList) {
+            System.out.println("Produkt: " + p.getName() + ", Pris: " + p.getPrice());
+        }
+
         model.addAttribute("productList", productList);
-
-
         return "index";
     }
+
 }
