@@ -34,7 +34,12 @@ public class PageController {
     }
 
     @GetMapping("/about")
-    public String aboutPage(Model model) {
+    public String aboutPage() {
         return "about"; // matcher about.html i templates-mappen
+    }
+
+    @GetMapping("/ContactUs")
+    public String contactPage() {
+        return "contactUs"; // matcher about.html i templates-mappen
     }
 }
