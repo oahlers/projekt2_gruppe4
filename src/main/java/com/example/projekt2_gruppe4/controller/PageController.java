@@ -42,4 +42,10 @@ public class PageController {
     public String contactPage() {
         return "contactUs"; // matcher contactUs.html i templates-mappen
     }
+
+
+    @GetMapping("/showWishlist")
+    public String contactPage() {
+        return "showWishlist"; // matcher contactUs.html i templates-mappen
+    }
 }
