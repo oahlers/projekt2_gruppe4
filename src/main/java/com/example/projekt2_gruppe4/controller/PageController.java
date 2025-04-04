@@ -32,5 +32,4 @@ public class PageController {
         model.addAttribute("productList", productList);
         return "index";
     }
-
 }
