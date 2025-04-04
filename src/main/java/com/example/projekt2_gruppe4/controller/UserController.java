@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 
@@ -23,10 +25,12 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
+                        HttpSession session,
                         Model model) {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            return "redirect:/";
+            session.setAttribute("loggedInUser", user); // Gem bruger i session
+            return "redirect:/wishlists";
         } else {
             model.addAttribute("loginError", "Invalid username or password");
             return "login";
@@ -44,7 +48,13 @@ public class UserController {
         } else {
             User newUser = new User(username, password);
             userRepository.createUser(newUser);
-            return "redirect:/";
+            return "redirect:/auth";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/auth";
     }
 }
