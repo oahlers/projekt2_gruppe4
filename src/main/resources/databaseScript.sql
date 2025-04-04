@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS ProductList;
 CREATE DATABASE ProductList;
 USE ProductList;
-
+--
 -- Products table (uændret)
 CREATE TABLE products (
                           id INT AUTO_INCREMENT PRIMARY KEY,
