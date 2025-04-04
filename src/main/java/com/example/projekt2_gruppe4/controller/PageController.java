@@ -40,6 +40,6 @@ public class PageController {
 
     @GetMapping("/ContactUs")
     public String contactPage() {
-        return "contactUs"; // matcher about.html i templates-mappen
+        return "contactUs"; // matcher contactUs.html i templates-mappen
     }
 }
