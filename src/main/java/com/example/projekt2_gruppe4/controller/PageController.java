@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;  // Ændret fra ArrayList til List
-
 @Controller
-@RequestMapping("/")
+@RequestMapping("/")  // Dette handler stadig root-path og relaterede sider
 public class PageController {
 
     @Autowired
@@ -19,17 +18,17 @@ public class PageController {
 
     @GetMapping("")
     public String mainPage() {
-        return "index";
+        return "index";  // Hjemmesiden
     }
 
     @GetMapping("/about")
     public String aboutPage() {
-        return "about";
+        return "about";  // Om os
     }
 
     @GetMapping("/contactUs")
     public String contactPage() {
-        return "contactUs";
+        return "contactUs";  // Kontakt os
     }
 
     @GetMapping("/showWishlist")
@@ -42,6 +41,6 @@ public class PageController {
         }
 
         model.addAttribute("productList", productList);
-        return "showWishlist";
+        return "showWishlist";  // Ønsker en liste over produkter
     }
 }
