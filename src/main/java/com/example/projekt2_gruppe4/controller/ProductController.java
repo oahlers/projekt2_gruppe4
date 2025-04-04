@@ -75,11 +75,11 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping("/")
+    @GetMapping("/products")
     public String showProductList(Model model) {
         List<Product> productList = productRepo.getAllProducts();
         model.addAttribute("productList", productList);
-        return "index";
+        return "index"; // Or a different template, e.g., "product-list"
     }
 
     @GetMapping("/wishlists")
