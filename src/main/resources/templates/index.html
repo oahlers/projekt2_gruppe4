@@ -6,13 +6,13 @@
     <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>
 <body>
-
+<h1>Hejsa</h1>
 <div class="navbarTop">
     <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="showWishlist.html">Show my wishlists</a></li>
-        <li><a href="contactUs.html">Contact</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a th:href="@{/}" class="active">Home</a></li>
+        <li><a th:href="@{/showWishlist}">Show my wishlists</a></li>
+        <li><a th:href="@{/contactUs}">Contact</a></li>
+        <li><a th:href="@{/about}" >About</a></li>
     </ul>
 </div>
 
