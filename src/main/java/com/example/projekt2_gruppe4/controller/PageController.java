@@ -19,17 +19,7 @@ public class PageController {
     ProductRepository productRepo;
 
     @GetMapping("")
-    public String mainPage(Model model) {
-        System.out.println("🔹 mainPage() blev kaldt!");
-
-        ArrayList<Product> productList = productRepo.getAllProducts();
-
-        System.out.println("Antal produkter hentet: " + productList.size());
-        for (Product p : productList) {
-            System.out.println("Produkt: " + p.getName() + ", Pris: " + p.getPrice());
-        }
-
-        model.addAttribute("productList", productList);
+    public String mainPage() {
         return "index";
     }
 
@@ -45,7 +35,16 @@ public class PageController {
 
 
     @GetMapping("/showWishlist")
-    public String showWishListPage() {
+    public String showWishListPage(Model model) {
+
+        ArrayList<Product> productList = productRepo.getAllProducts();
+
+        System.out.println("Antal produkter hentet: " + productList.size());
+        for (Product p : productList) {
+            System.out.println("Produkt: " + p.getName() + ", Pris: " + p.getPrice());
+        }
+
+        model.addAttribute("productList", productList);
         return "showWishlist"; // matcher showWishList.html i templates-mappen
     }
 }
