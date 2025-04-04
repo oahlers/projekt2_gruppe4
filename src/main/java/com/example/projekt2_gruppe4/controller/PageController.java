@@ -33,4 +33,8 @@ public class PageController {
         return "index";
     }
 
+    @GetMapping("/about")
+    public String aboutPage(Model model) {
+        return "about"; // matcher about.html i templates-mappen
+    }
 }
