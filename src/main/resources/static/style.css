@@ -1,43 +1,49 @@
 body {
     font-family: Arial, sans-serif;
-    background: rgb(63,94,251);
     background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(190,70,252,1) 100%);
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
 
 .navbarTop {
-    color: white;
-    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rebeccapurple;
+    padding: 1px;
 }
 
 ul {
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: 0;
-    top: 0;
 }
 
 li {
-    color: #cccccc;
     float: left;
-    background-color: rebeccapurple;
-    border-right: 1px solid #cccccc;
+    background: rebeccapurple;
+    border-right: 1px solid #ccc;
 }
 
 a {
     display: block;
     padding: 8px;
     text-decoration: none;
-    color: #cccccc;
+    color: #ccc;
 }
 
 a:visited {
-    color: #cccccc;
+    color: #ccc;
 }
 
 .active {
-    background-color: purple;
+    background: purple;
 }
 
 .productContainer {
@@ -54,106 +60,69 @@ a:visited {
     border: 2px solid #ccc;
     border-radius: 8px;
     padding: 20px;
-    margin: 20px;
-    width: calc(25.00% - 40px); /* 3 per row */
+    width: calc(25% - 40px);
     height: 300px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .square img {
     width: 100%;
     height: 150px;
-    margin-bottom: 15px;
     border-radius: 4px;
     object-fit: cover;
 }
-.square div {
-    width: 100%;
-}
-.square label {
-    font-weight: bold;
-}
-.buttons {
-    display: flex;
-    margin-top: 20px;
-    justify-content: center;
-    align-items: center;
-}
-.btn {
-    display: inline-block;
-    background-color: #4CAF50;
+
+.submit, button {
+    background: purple;
     color: white;
     padding: 10px 20px;
-    margin: 0 5px;
-    text-decoration: none;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;
 }
-.btn:hover {
-    background-color: #45a049;
+
+.submit:hover, button:hover {
+    background: rebeccapurple;
 }
-.modify-forms {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    margin-top: 20px;
-}
-.modify-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.modify-form input {
-    padding: 8px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.form-container {
-    background: #fff;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
+
+.form-container, .container {
     width: 400px;
-    box-sizing: border-box;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
-.form-container h2 {
+
+h2 {
     text-align: center;
-    margin-bottom: 20px;
+    color: #333;
 }
-.form-container label {
+
+label {
     display: block;
+    margin-bottom: 5px;
     font-weight: bold;
-    margin-top: 10px;
+    color: #555;
 }
-.form-container input[type="text"],
-.form-container input[type="url"] {
+
+input {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
 }
-.form-container button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-}
-.form-container button:hover {
-    background-color: #45a049;
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
 }

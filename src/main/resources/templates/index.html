@@ -6,7 +6,6 @@
     <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>
 <body>
-<h1>Hejsa</h1>
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}" class="active">Home</a></li>
@@ -14,9 +13,9 @@
         <li><a th:href="@{/contactUs}">Contact</a></li>
         <li><a th:href="@{/about}" >About</a></li>
     </ul>
+</div>
 
     <div class="container">
-        <!-- Login Form -->
         <div class="form-section">
             <h2>Login</h2>
             <form th:action="@{/login}" method="post">
@@ -29,7 +28,7 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div>
-                    <button type="submit">Login</button>
+                    <button class="submit" type="submit">Login</button>
                 </div>
                 <div th:if="${loginError}" class="error">
                     <p th:text="${loginError}">Invalid username or password</p>
@@ -37,7 +36,6 @@
             </form>
         </div>
 
-        <!-- Register Form -->
         <div class="form-section">
             <h2>Create Account</h2>
             <form th:action="@{/register}" method="post">
@@ -50,7 +48,7 @@
                     <input type="password" id="newPassword" name="password" required>
                 </div>
                 <div>
-                    <button type="submit">Register</button>
+                    <button class="submit" type="submit">Register</button>
                 </div>
                 <div th:if="${registerError}" class="error">
                     <p th:text="${registerError}">Username already exists</p>
