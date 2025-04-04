@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/auth")
     public String showAuthPage() {
-        return "login";
+        return "index";
     }
 
     @PostMapping("/login")
@@ -30,10 +30,10 @@ public class UserController {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("loggedInUser", user); // Gem bruger i session
-            return "redirect:/wishlists";
+            return "redirect:/showWishlist";
         } else {
             model.addAttribute("loginError", "Invalid username or password");
-            return "login";
+            return "index";
         }
     }
 
