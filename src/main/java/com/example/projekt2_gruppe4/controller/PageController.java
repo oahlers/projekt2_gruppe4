@@ -37,4 +37,9 @@ public class PageController {
     public String aboutPage() {
         return "about"; // matcher about.html i templates-mappen
     }
+
+    @GetMapping("/ContactUs")
+    public String contactPage() {
+        return "contactUs"; // matcher about.html i templates-mappen
+    }
 }
