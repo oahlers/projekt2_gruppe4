@@ -25,7 +25,7 @@ public class ProductController {
         return "createProduct";
     }
 
-    @PostMapping("/saveCreteProduct")
+    @PostMapping("/saveCreateProduct")
     public String postCreateProduct(@RequestParam ("name") String name,
                                     @RequestParam ("description") String description,
                                     @RequestParam ("price") double price){
