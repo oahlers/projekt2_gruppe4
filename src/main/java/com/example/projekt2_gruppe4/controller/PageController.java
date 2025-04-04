@@ -32,4 +32,9 @@ public class PageController {
         model.addAttribute("productList", productList);
         return "index";
     }
+
+    @GetMapping("/about")
+    public String aboutPage(Model model) {
+        return "about"; // matcher about.html i templates-mappen
+    }
 }
