@@ -45,7 +45,7 @@ public class PageController {
 
 
     @GetMapping("/showWishlist")
-    public String contactPage() {
+    public String showWishListPage() {
         return "showWishlist"; // matcher contactUs.html i templates-mappen
     }
 }
