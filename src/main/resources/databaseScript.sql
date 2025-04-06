@@ -1,8 +1,7 @@
 DROP DATABASE IF EXISTS ProductList;
 CREATE DATABASE ProductList;
 USE ProductList;
---
--- Products table (uændret)
+
 CREATE TABLE products (
                           id INT AUTO_INCREMENT PRIMARY KEY,
                           name VARCHAR(100) NOT NULL,
@@ -18,7 +17,6 @@ INSERT INTO products (name, description, price, img) VALUES
                                                          ('Cola', 'Den kan drikkes', 18, 'cola.jpg'),
                                                          ('Sprite', 'Den kan drikkes', 18, 'sprite.webp');
 
--- Users table (uændret)
 CREATE TABLE users (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        username VARCHAR(100) NOT NULL UNIQUE,
@@ -29,7 +27,7 @@ INSERT INTO users (username, password) VALUES
                                            ('user1', 'password1'),
                                            ('user2', 'password2');
 
--- Wishlists table (ny)
+
 CREATE TABLE wishlists (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            user_id INT NOT NULL,
