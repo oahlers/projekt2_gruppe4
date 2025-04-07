@@ -2,6 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Wishlist</title>
+</head>
+<body>
+<h1>Create a Wishlist</h1>
+<form action="/saveCreateWishlist" method="post">
+    <label for="title">Wishlist Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" required></textarea><br><br>
+
+    <label for="pincode">Pincode (4 digits):</label><br>
+    <input type="text" id="pincode" name="pincode" pattern="\d{4}" required><br><br>
+
+    <button type="submit">Create Wishlist</button>
+</form>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>Title</title>
     <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>

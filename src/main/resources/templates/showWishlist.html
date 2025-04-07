@@ -16,29 +16,5 @@
     </ul>
 </div>
 
-<div class="productContainer">
-    <div class="square" th:each="product : ${productList}">
-        <img th:src="@{'/img/' + ${product.image}}" alt="Product Image">
-        <div>
-            <label>ID:</label>
-            <span th:text="${product.id}">ID</span>
-        </div>
-
-        <div>
-            <label>Name:</label>
-            <span th:text="${product.name}">Name</span>
-        </div>
-
-        <div>
-            <label>Description:</label>
-            <span th:text="${product.description}">Description</span>
-        </div>
-
-        <div>
-            <label>Price:</label>
-            <span th:text="${product.price}">Price</span>
-        </div>
-    </div>
-</div>
 </body>
 </html>

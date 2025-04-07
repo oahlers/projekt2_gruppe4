@@ -1,5 +1,7 @@
 package com.example.projekt2_gruppe4.model;
 
+import java.util.List;
+
 public class Product {
     int id;
     String name;
@@ -65,4 +67,8 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public void setProducts(List<Product> productsForWishlist) {
+    }
 }
+

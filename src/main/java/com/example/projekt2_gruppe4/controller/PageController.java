@@ -32,7 +32,7 @@ public class PageController {
 
     @GetMapping("/showWishlist")
     public String showWishListPage(Model model) {
-        List<Product> productList = productRepo.getAllProducts();  // Ændret til List
+        List<Product> productList = productRepo.getAllProducts();
 
         System.out.println("Antal produkter hentet: " + productList.size());
         for (Product p : productList) {

@@ -50,4 +50,40 @@ public class WishlistRepository {
             return product;
         }
     }
+
+    public Wishlist findById(int id) {
+        // Eksempel, hvor vi finder ønskelisten vha. et SQL-kald
+        Wishlist wishlist = jdbcTemplate.queryForObject(
+                "SELECT * FROM wishlists WHERE id = ?",
+                new Object[]{id},
+                (rs, rowNum) -> new Wishlist(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("pincode"),
+                        rs.getInt("user_id")
+                )
+        );
+
+        // Finder tilhørende produkter og sætter det på ønskelisten (valgfrit eksempel)
+        List<Product> products = jdbcTemplate.query(
+                "SELECT * FROM products WHERE wishlist_id = ?",
+                new Object[]{id},
+                (rs, rowNum) -> new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getDouble("price"),
+                        rs.getString("img")
+                )
+        );
+        wishlist.setProducts(products); // Bruger 'setProducts' her
+
+        return wishlist;
+    }
+
+    public void save(Wishlist wishlist) {
+        String sql = "INSERT INTO wishlists (id, title, description, pincode, user_id) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, wishlist.getId(), wishlist.getTitle(), wishlist.getDescription(), wishlist.getPincode(), wishlist.getUserId());
+    }
 }

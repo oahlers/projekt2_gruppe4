@@ -4,30 +4,70 @@ import java.util.List;
 
 public class Wishlist {
     private int id;
+    private String title;
+    private String description;
+    private String pincode;
     private int userId;
-    private String name;
-    private List<Product> products; // Liste af produkter i ønskelisten
+    private List<Product> products; // Tilføj feltet for produkter
 
-    public Wishlist() {}
-
-    public Wishlist(int userId, String name) {
+    // Konstruktør
+    public Wishlist(int id, String title, String description, String pincode, int userId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.pincode = pincode;
         this.userId = userId;
-        this.name = name;
     }
 
     public Wishlist(int id, int userId, String name) {
-        this.id = id;
-        this.userId = userId;
-        this.name = name;
     }
 
-    // Getters og setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public List<Product> getProducts() { return products; }
-    public void setProducts(List<Product> products) { this.products = products; }
+    // Getters og Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public List<Product> getProducts() {
+        return products; // Returnerer listen af produkter
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products; // Sætter listen af produkter
+    }
 }
