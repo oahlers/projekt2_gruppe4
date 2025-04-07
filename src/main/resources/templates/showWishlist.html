@@ -15,6 +15,18 @@
         <li><a th:href="@{/about}"  >About</a></li>
     </ul>
 </div>
+<h1>Create a Wishlist</h1>
+<form action="/saveCreateWishlist" method="post">
+    <label for="title">Wishlist Title:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
 
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" required></textarea><br><br>
+
+    <label for="pincode">Pincode (4 digits):</label><br>
+    <input type="text" id="pincode" name="pincode" pattern="\d{4}" required><br><br>
+
+    <button type="submit">Create Wishlist</button>
+</form>
 </body>
 </html>
