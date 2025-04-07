@@ -15,6 +15,9 @@
         <li><a th:href="@{/contactUs}" class="active" >Contact</a></li>
         <li><a th:href="@{/about}" >About</a></li>
     </ul>
+    <div class="welcomeBox" th:if="${loggedInUser != null}">
+        Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+    </div>
 </div>
 <div class="ContactUs">
     <h1>Contact Us</h1>
