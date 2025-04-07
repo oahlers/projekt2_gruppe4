@@ -45,10 +45,12 @@ public class WishlistController {
     public String viewWishlist(@PathVariable("id") int id, Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
+        // Tjek om brugeren er logget ind.
         if (loggedInUser == null) {
-            return "redirect:/index";
+            return "redirect:/index"; // Redirect til loginside, hvis ikke logget ind.
         }
 
+        // Hent ønskelisten fra databasen for en given bruger og ID.
         String selectQuery = "SELECT * FROM wishlist WHERE id = ? AND user_id = ?";
         List<Wishlist> wishlists = jdbcTemplate.query(selectQuery, new Object[]{id, loggedInUser.getId()}, new RowMapper<Wishlist>() {
             @Override
@@ -63,13 +65,14 @@ public class WishlistController {
             }
         });
 
-        Wishlist wishlist = wishlists.isEmpty() ? null : wishlists.get(0);
-
-        if (wishlist == null) {
+        // Hvis listen er tom, returner til ønskelisteoversigten.
+        if (wishlists.isEmpty()) {
             return "redirect:/wishlists";
         }
 
-        model.addAttribute("wishlist", wishlist);
-        return "viewWishlist";
+        Wishlist wishlist = wishlists.get(0);
+        model.addAttribute("wishlist", wishlist); // Tilføj data til Thymeleaf-modellen.
+
+        return "viewWishlist"; // Return viewWishlist.html i resources/templates.
     }
 }

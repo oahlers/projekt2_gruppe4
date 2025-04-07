@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ønskeliste</title>
+</head>
+<body>
+<h1>Ønskeliste: <span th:text="${wishlist.title}"></span></h1>
+<p>Beskrivelse: <span th:text="${wishlist.description}"></span></p>
+<p>Pincode: <span th:text="${wishlist.pincode}"></span></p>
+
+<!-- Her kan du vise yderligere detaljer -->
+<h2>Handlinger</h2>
+<ul>
+    <li><a href="/wishlists">Tilbage til mine ønskelister</a></li>
+    <li><a href="/products/add">Tilføj produkter</a></li>
+</ul>
+</body>
+</html>

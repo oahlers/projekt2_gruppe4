@@ -26,7 +26,7 @@ public class ProductController {
         product.setWishlistId(wishlistId);  // Metoden tilføjet i Product-klassen
 
         // Gem produktet ved hjælp af JdbcTemplate
-        String insertQuery = "INSERT INTO product (name, description, price, wishlist_id) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
         jdbcTemplate.update(insertQuery, product.getName(), product.getDescription(), product.getPrice(), product.getWishlistId());
 
         return "redirect:/products"; // Redirect til produktlisten
