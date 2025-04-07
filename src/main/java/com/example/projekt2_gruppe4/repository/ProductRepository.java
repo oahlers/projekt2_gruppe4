@@ -2,115 +2,70 @@ package com.example.projekt2_gruppe4.repository;
 
 import com.example.projekt2_gruppe4.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ProductRepository {
 
-
     @Autowired
-    private DataSource dataSource;
-    public ArrayList<Product> getAllProducts() {
-        ArrayList<Product> tempProductList = new ArrayList<>();
+    private JdbcTemplate jdbcTemplate;
 
-        String sql = "SELECT * FROM products";
+    // Hent alle produkter tilknyttet en ønskeliste
+    public List<Product> findByWishlistId(int wishlistId) {
+        String query = """
+            SELECT p.id, p.name, p.description, p.price, p.img
+            FROM wishlist_products wp
+            JOIN products p ON wp.product_id = p.id
+            WHERE wp.wishlist_id = ?
+        """;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
+        return jdbcTemplate.query(query, new Object[]{wishlistId}, new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Product product = new Product();
-                product.setId(resultSet.getInt("id"));
-                product.setName(resultSet.getString("name"));
-                product.setDescription(resultSet.getString("description"));
-                product.setPrice(resultSet.getDouble("price"));
-                product.setImage(resultSet.getString("img"));
-                tempProductList.add(product);
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("img"));
+                return product;
             }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return tempProductList;
+        });
     }
 
-    public Product getProductById(int id) throws SQLException {
-        Product product = new Product();
-        String sql = "SELECT * FROM products WHERE id = ?";
+    // Gem et nyt produkt
+    public void save(Product product) {
+        String query = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(query, product.getName(), product.getDescription(), product.getPrice(), product.getImage());
+    }
 
-        try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1,id);
+    // Opdater et eksisterende produkt
+    public void update(Product updatedProduct) {
+        String query = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
+        jdbcTemplate.update(query, updatedProduct.getName(), updatedProduct.getDescription(),
+                updatedProduct.getPrice(), updatedProduct.getImage(), updatedProduct.getId());
+    }
 
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    product.setId(resultSet.getInt("id"));
-                    product.setName(resultSet.getString("name"));
-                    product.setDescription(resultSet.getString("description"));
-                    product.setPrice(resultSet.getDouble("price"));
-                    product.setImage(resultSet.getString("img"));
-                }
-            }catch (SQLException e){
-                e.printStackTrace();
+    // Hent alle produkter fra databasen
+    public List<Product> getAllProducts() {
+        String query = "SELECT * FROM products";
+        return jdbcTemplate.query(query, new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("img"));
+                return product;
             }
-        }return product;
+        });
     }
-
-    public void deleteProduct(int id){
-        String sql = "DELETE FROM products WHERE id = ?";
-
-        try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1,id);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveProduct(Product product){
-        String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
-
-        try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            //forstår ikke fejlen her. hjælp gerne?? (video 4 omkring min10)
-            statement.setString(1, product.getName());
-            statement.setString(2, product.getDescription());
-            statement.setDouble(3, product.getPrice());
-            statement.setString(4, product.getImage());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void update (Product updatedProduct){
-        String sql = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, updatedProduct.getName());
-            statement.setString(2, updatedProduct.getDescription());
-            statement.setDouble(3, updatedProduct.getPrice());
-            statement.setString(4, updatedProduct.getImage());
-            statement.setInt(5, updatedProduct.getId());
-
-            statement.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
 }

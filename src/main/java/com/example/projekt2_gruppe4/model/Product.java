@@ -1,33 +1,14 @@
 package com.example.projekt2_gruppe4.model;
 
-import java.util.List;
-
 public class Product {
-    int id;
-    String name;
-    String description;
-    double price;
-    String image;
+    private int id;
+    private String name;
+    private String description;
+    private double price;
+    private int wishlistId;
+    private String image;  // Nyt felt til at holde billedets sti
 
-    public Product(int id, String name, String description, double price, String image) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-    }
-
-    public Product( String name, String description, double price, String image) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-    }
-
-    public Product() {
-
-    }
-
+    // Getters og setters
     public int getId() {
         return id;
     }
@@ -60,6 +41,14 @@ public class Product {
         this.price = price;
     }
 
+    public int getWishlistId() {
+        return wishlistId;
+    }
+
+    public void setWishlistId(int wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
     public String getImage() {
         return image;
     }
@@ -67,8 +56,4 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
-
-    public void setProducts(List<Product> productsForWishlist) {
-    }
 }
-
