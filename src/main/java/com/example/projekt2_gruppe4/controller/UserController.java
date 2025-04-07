@@ -29,7 +29,8 @@ public class UserController {
                         Model model) {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("loggedInUser", user); // Gem bruger i session
+            session.setAttribute("loggedInUser", user); // Save user in session
+            model.addAttribute("loggedInUser", user); // Add user to model
             return "redirect:/showWishlist";
         } else {
             model.addAttribute("loginError", "Invalid username or password");
@@ -57,4 +58,6 @@ public class UserController {
         session.invalidate();
         return "redirect:/auth";
     }
+
+
 }
