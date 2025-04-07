@@ -40,12 +40,12 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- Remove version to let Spring Boot manage the version -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <version>3.4.4</version>
         </dependency>
-
 
         <!-- Test dependencies -->
         <dependency>
@@ -61,6 +61,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Explicitly add compatible versions of spring-core and spring-web if needed -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.2.5</version> <!-- Ensure compatibility with Spring 6 -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.2.5</version> <!-- Ensure compatibility with Spring 6 -->
         </dependency>
     </dependencies>
 
