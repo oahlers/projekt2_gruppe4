@@ -2,72 +2,115 @@ package com.example.projekt2_gruppe4.repository;
 
 import com.example.projekt2_gruppe4.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 @Repository
 public class ProductRepository {
 
-    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private DataSource dataSource;
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> tempProductList = new ArrayList<>();
 
-    public List<Product> getAllProducts() {
         String sql = "SELECT * FROM products";
-        return jdbcTemplate.query(sql, new ProductRowMapper());
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("id"));
+                product.setName(resultSet.getString("name"));
+                product.setDescription(resultSet.getString("description"));
+                product.setPrice(resultSet.getDouble("price"));
+                product.setImage(resultSet.getString("img"));
+                tempProductList.add(product);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return tempProductList;
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(int id) throws SQLException {
+        Product product = new Product();
         String sql = "SELECT * FROM products WHERE id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new ProductRowMapper(), id);
-        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
-            return null; // Returner null hvis produkt ikke findes
-        }
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1,id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    product.setId(resultSet.getInt("id"));
+                    product.setName(resultSet.getString("name"));
+                    product.setDescription(resultSet.getString("description"));
+                    product.setPrice(resultSet.getDouble("price"));
+                    product.setImage(resultSet.getString("img"));
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }return product;
     }
 
-    public void deleteProduct(int id) {
+    public void deleteProduct(int id){
         String sql = "DELETE FROM products WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-    }
 
-    public void saveProduct(Product product) {
-        String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql,
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getImage());
-    }
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
 
-    public void update(Product product) {
-        String sql = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
-        jdbcTemplate.update(sql,
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getImage(),
-                product.getId());
-    }
+            statement.setInt(1,id);
 
-    private static class ProductRowMapper implements RowMapper<Product> {
-        @Override
-        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setDescription(rs.getString("description"));
-            product.setPrice(rs.getDouble("price"));
-            product.setImage(rs.getString("img"));
-            return product;
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
+    public void saveProduct(Product product){
+        String sql = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            //forstår ikke fejlen her. hjælp gerne?? (video 4 omkring min10)
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getImage());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update (Product updatedProduct){
+        String sql = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, updatedProduct.getName());
+            statement.setString(2, updatedProduct.getDescription());
+            statement.setDouble(3, updatedProduct.getPrice());
+            statement.setString(4, updatedProduct.getImage());
+            statement.setInt(5, updatedProduct.getId());
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
