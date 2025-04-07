@@ -106,7 +106,7 @@ body {
 .form-container, .container {
     width: 400px;
     padding: 20px;
-    background: white;
+    background: whitesmoke;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -137,3 +137,45 @@ input {
     text-align: center;
     margin-top: 10px;
 }
+
+textarea {
+    resize: none;
+}
+
+.wishlist-container, .createWishlist-container {
+    outline: 2px solid #ccc;
+    margin-top: 40px;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 70%;
+}
+
+.wishlist-card {
+    outline: 2px solid #ccc;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 20vh;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.wishlist-content-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px;
+}
+
