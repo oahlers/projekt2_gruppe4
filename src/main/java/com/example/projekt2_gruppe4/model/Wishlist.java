@@ -8,9 +8,12 @@ public class Wishlist {
     private String description;
     private String pincode;
     private int userId;
-    private List<Product> products; // Tilføj feltet for produkter
+    private List<Product> products;
 
-    // Konstruktør
+    // Standard konstruktor
+    public Wishlist() {}
+
+    // Konstruktor med parametre
     public Wishlist(int id, String title, String description, String pincode, int userId) {
         this.id = id;
         this.title = title;
@@ -19,10 +22,7 @@ public class Wishlist {
         this.userId = userId;
     }
 
-    public Wishlist(int id, int userId, String name) {
-    }
-
-    // Getters og Setters
+    // Getters og setters
     public int getId() {
         return id;
     }
@@ -64,10 +64,10 @@ public class Wishlist {
     }
 
     public List<Product> getProducts() {
-        return products; // Returnerer listen af produkter
+        return products;
     }
 
     public void setProducts(List<Product> products) {
-        this.products = products; // Sætter listen af produkter
+        this.products = products;
     }
 }

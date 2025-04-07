@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Wishlist</title>
+    <title>Wishlist</title>
 </head>
 <body>
+<h1>Ønskeliste: <span th:text="${wishlist.title}"></span></h1>
+<p><strong>Beskrivelse:</strong> <span th:text="${wishlist.description}"></span></p>
+<p><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
 
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
-</head>
-<body>
+<!-- Sektionen til produkter -->
+<h2>Produkter</h2>
+<ul>
+    <li th:each="product : ${wishlist.products}">
+        <strong>Produktnavn:</strong> <span th:text="${product.name}"></span><br>
+        <strong>Beskrivelse:</strong> <span th:text="${product.description}"></span><br>
+        <strong>Pris:</strong> <span th:text="${product.price}"></span>
+    </li>
+</ul>
 
+<!-- Knappen til at oprette et produkt -->
+<a th:href="@{/getCreateProduct(wishlistId=${wishlist.id})}">
+    <button>Create Product</button>
+</a>
+
+<!-- Link tilbage til alle ønskelister -->
+<a href="/wishlists">
+    <button>Tilbage til alle ønskelister</button>
+</a>
 </body>
 </html>
