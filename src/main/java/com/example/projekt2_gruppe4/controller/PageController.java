@@ -37,6 +37,7 @@ public class PageController {
     public String contactPage(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         model.addAttribute("loggedInUser", loggedInUser);
+        model.addAttribute("contactSuccess", "Thanks! We'll get back to you shortly.");
         return "contactUs";
     }
 
