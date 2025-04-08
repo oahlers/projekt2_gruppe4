@@ -2,24 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ønskeliste</title>
+    <title>Wishlist</title>
     <link href="/static/style.css" rel="stylesheet" th:href="@{/static/style.css}">
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>Ønskeliste: <span th:text="${wishlist.title}"></span></h1>
+        <h1>Wishlist: <span th:text="${wishlist.title}"></span></h1>
     </header>
 
     <div class="wishlist-details">
-        <p><strong>Beskrivelse:</strong> <span th:text="${wishlist.description}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${wishlist.description}"></span></p>
         <p><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
     </div>
 
     <h2>Handlinger</h2>
     <ul class="actions">
-        <li><a href="/showWishlist" class="button">Tilbage til mine ønskelister</a></li>
-        <li><a href="/products/add" class="button">Tilføj produkter</a></li>
+        <li><a href="/showWishlist" class="button">Back to wishlists</a></li>
+        <li><a href="/products/add" class="button">Add products</a></li>
     </ul>
 </div>
 </body>
