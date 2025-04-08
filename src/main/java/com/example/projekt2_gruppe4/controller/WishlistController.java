@@ -34,7 +34,7 @@ public class WishlistController {
         }
         String shareToken = UUID.randomUUID().toString().substring(0, 8); // eks: "abc123ef"
 
-        String insertQuery = "INSERT INTO wishlist (title, description, pincode, user_id) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO wishlists (title, description, pincode, user_id) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertQuery, title, description, pincode, loggedInUser.getId());
 
         String lastInsertIdQuery = "SELECT LAST_INSERT_ID()";
