@@ -32,6 +32,8 @@ CREATE TABLE wishlists (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            user_id INT NOT NULL,
                            name VARCHAR(100) NOT NULL,
+                           description VARCHAR(255),
+                           pincode VARCHAR(255),
                            share_token VARCHAR(100) UNIQUE,
                            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -48,9 +50,9 @@ CREATE TABLE wishlist_products (
 );
 
 -- Testdata til wishlists og wishlist_products
-INSERT INTO wishlists (user_id, name) VALUES
-                                          (1, 'user1s drikkeliste'),
-                                          (2, 'user2s favoritdrikke');
+INSERT INTO wishlists (user_id, name, description) VALUES
+                                (1, 'user1s drikkeliste', 'Jeg elsker drikkevarer'),
+                                (2, 'user2s favoritdrikke', 'Jeg elsker drikkevarer');
 
 INSERT INTO wishlist_products (wishlist_id, product_id) VALUES
                                                             (1, 1), -- Øl i user1s drikkeliste

@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>Ønskeliste: <span th:text="${wishlist.title}"></span></h1>
-    </header>
+<h1>Ønskeliste: <span th:text="${wishlist.title}"></span></h1>
+<p>Beskrivelse: <span th:text="${wishlist.description}"></span></p>
+<p>Pincode: <span th:text="${wishlist.pincode}"></span></p>
 
-    <div class="wishlist-details">
-        <p><strong>Beskrivelse:</strong> <span th:text="${wishlist.description}"></span></p>
-        <p><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
-    </div>
-
-    <h2>Handlinger</h2>
-    <ul class="actions">
-        <li><a href="/wishlists" class="button">Tilbage til mine ønskelister</a></li>
-        <li><a href="/products/add" class="button">Tilføj produkter</a></li>
-    </ul>
-</div>
+<!-- Her kan du vise yderligere detaljer -->
+<h2>Handlinger</h2>
+<ul>
+    <li><a href="/wishlists">Tilbage til mine ønskelister</a></li>
+    <li><a href="/products/add">Tilføj produkter</a></li>
+</ul>
 </body>
 </html>
