@@ -49,18 +49,12 @@ public class PageController {
                                     @RequestParam String message,
                                     Model model,
                                     HttpSession session) {
-        // Her kunne du fx logge eller gemme beskeden et sted
         System.out.println("Contact form submitted by: " + name + ", Email: " + email);
         System.out.println("Message: " + message);
-
-        // Tilføj attributter til visning på kontakt-siden
-        model.addAttribute("contactSuccess", "Tak for din besked, " + name + "! Vi vender tilbage snarest muligt.");
-
-        // Hvis du vil vise loggedInUser i toppen af siden
+        model.addAttribute("contactSuccess", "Thanks for your message, " + name + "! We'll get back to you shortly!.");
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         model.addAttribute("loggedInUser", loggedInUser);
-
-        return "contactUs"; // Viser samme side med bekræftelse
+        return "contactUs"; //
     }
 
 
