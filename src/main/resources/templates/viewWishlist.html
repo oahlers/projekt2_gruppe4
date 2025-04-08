@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link rel="stylesheet" th:href="@{/static/style.css}">
+    <link href="/static/style.css" rel="stylesheet" th:href="@{/static/style.css}">
 </head>
 <body>
 <div class="container">
@@ -18,7 +18,7 @@
 
     <h2>Handlinger</h2>
     <ul class="actions">
-        <li><a href="/wishlists" class="button">Tilbage til mine ønskelister</a></li>
+        <li><a href="/viewWishlist" class="button">Tilbage til mine ønskelister</a></li>
         <li><a href="/products/add" class="button">Tilføj produkter</a></li>
     </ul>
 </div>
