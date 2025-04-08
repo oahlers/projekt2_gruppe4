@@ -6,7 +6,6 @@ public class Product {
     private String description;
     private double price;
     private int wishlistId;
-    private String image;  // Nyt felt til at holde billedets sti
 
     // Getters og setters
     public int getId() {
@@ -47,13 +46,5 @@ public class Product {
 
     public void setWishlistId(int wishlistId) {
         this.wishlistId = wishlistId;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

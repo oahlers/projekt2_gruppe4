@@ -19,7 +19,7 @@ public class ProductRepository {
     // Hent alle produkter tilknyttet en ønskeliste
     public List<Product> findByWishlistId(int wishlistId) {
         String query = """
-            SELECT p.id, p.name, p.description, p.price, p.img
+            SELECT p.id, p.name, p.description, p.price
             FROM wishlist_products wp
             JOIN products p ON wp.product_id = p.id
             WHERE wp.wishlist_id = ?
@@ -33,7 +33,6 @@ public class ProductRepository {
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
-                product.setImage(rs.getString("img"));
                 return product;
             }
         });
@@ -41,15 +40,15 @@ public class ProductRepository {
 
     // Gem et nyt produkt
     public void save(Product product) {
-        String query = "INSERT INTO products (name, description, price, img) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(query, product.getName(), product.getDescription(), product.getPrice(), product.getImage());
+        String query = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
+        jdbcTemplate.update(query, product.getName(), product.getDescription(), product.getPrice());
     }
 
     // Opdater et eksisterende produkt
     public void update(Product updatedProduct) {
-        String query = "UPDATE products SET name = ?, description = ?, price = ?, img = ? WHERE id = ?";
+        String query = "UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?";
         jdbcTemplate.update(query, updatedProduct.getName(), updatedProduct.getDescription(),
-                updatedProduct.getPrice(), updatedProduct.getImage(), updatedProduct.getId());
+                updatedProduct.getPrice(), updatedProduct.getId());
     }
 
     // Hent alle produkter fra databasen
@@ -63,7 +62,6 @@ public class ProductRepository {
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
-                product.setImage(rs.getString("img"));
                 return product;
             }
         });
