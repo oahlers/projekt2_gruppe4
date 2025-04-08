@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Ønskeliste</title>
-    <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
+    <!-- Brug Thymeleaf til at referere korrekt til din statiske CSS-fil -->
+    <link href="/static/style.css" rel="stylesheet" th:href="@{/static/style.css}">
 </head>
 <body>
 <div class="container">
