@@ -34,8 +34,9 @@ public class WishlistController {
         }
         String shareToken = UUID.randomUUID().toString().substring(0, 8); // eks: "abc123ef"
 
-        String insertQuery = "INSERT INTO wishlists (title, description, pincode, user_id) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO wishlists (name, description, pincode, user_id) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertQuery, title, description, pincode, loggedInUser.getId());
+
 
         String lastInsertIdQuery = "SELECT LAST_INSERT_ID()";
         int wishlistId = jdbcTemplate.queryForObject(lastInsertIdQuery, Integer.class);
@@ -59,7 +60,7 @@ public class WishlistController {
             public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Wishlist wishlist = new Wishlist();
                 wishlist.setId(rs.getInt("id"));
-                wishlist.setTitle(rs.getString("title"));
+                wishlist.setTitle(rs.getString("name"));
                 wishlist.setDescription(rs.getString("description"));
                 wishlist.setPincode(rs.getString("pincode"));
                 wishlist.setUserId(rs.getInt("user_id"));
