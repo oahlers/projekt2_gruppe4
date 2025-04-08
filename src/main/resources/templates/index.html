@@ -58,6 +58,27 @@
             </div>
         </form>
     </div>
+
+    <div class="form-section">
+        <h2>Se en ønskeliste</h2>
+        <form th:action="@{/wishlists/shared}" method="post">
+        <div>
+                <label for="token">Delingslink:</label>
+                <input type="text" id="token" name="token" placeholder="Indsæt kode her" required>
+            </div>
+            <div>
+                <label for="pincode">Pinkode:</label>
+                <input type="text" id="pincode" name="pincode" required>
+            </div>
+            <div>
+                <button class="submit" type="submit">Se ønskeliste</button>
+            </div>
+            <div th:if="${sharedError}" class="error">
+                <p th:text="${sharedError}">Forkert token eller pinkode</p>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 </body>

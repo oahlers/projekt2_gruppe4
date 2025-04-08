@@ -32,8 +32,11 @@ CREATE TABLE wishlists (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            user_id INT NOT NULL,
                            name VARCHAR(100) NOT NULL,
+                           share_token VARCHAR(100) UNIQUE,
                            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+
 
 -- Wishlist_products table (ny - mange-til-mange relation)
 CREATE TABLE wishlist_products (
@@ -54,3 +57,4 @@ INSERT INTO wishlist_products (wishlist_id, product_id) VALUES
                                                             (1, 2), -- Cider i user1s drikkeliste
                                                             (2, 3), -- Faxe i user2s favoritdrikke
                                                             (2, 4); -- Cola i user2s favoritdrikke
+

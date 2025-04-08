@@ -9,6 +9,7 @@ public class Wishlist {
     private String pincode;
     private int userId;
     private List<Product> products;
+    private String shareToken; // 👈 Tilføj denne linje
 
     // Standard konstruktor
     public Wishlist() {}
@@ -69,5 +70,13 @@ public class Wishlist {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public String getShareToken() {
+        return shareToken;
+    }
+
+    public void setShareToken(String shareToken) {
+        this.shareToken = shareToken;
     }
 }
