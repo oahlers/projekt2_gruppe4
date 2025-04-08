@@ -41,7 +41,7 @@ public class WishlistController {
         String lastInsertIdQuery = "SELECT LAST_INSERT_ID()";
         int wishlistId = jdbcTemplate.queryForObject(lastInsertIdQuery, Integer.class);
 
-        return "redirect:/wishlists/{wishlistId}" + wishlistId;
+        return "redirect:/wishlists/" + wishlistId;
     }
 
     @GetMapping("/{id}")
