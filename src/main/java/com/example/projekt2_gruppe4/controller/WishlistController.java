@@ -53,7 +53,7 @@ public class WishlistController {
         }
 
         // Hent ønskelisten fra databasen for en given bruger og ID.
-        String selectQuery = "SELECT * FROM wishlist WHERE id = ? AND user_id = ?";
+        String selectQuery = "SELECT * FROM wishlists WHERE id = ? AND user_id = ?";
         List<Wishlist> wishlists = jdbcTemplate.query(selectQuery, new Object[]{id, loggedInUser.getId()}, new RowMapper<Wishlist>() {
             @Override
             public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
