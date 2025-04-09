@@ -88,7 +88,7 @@ public class WishlistController {
         }
 
         // Hent alle ønskelister for den loggede bruger
-        String sql = "SELECT * FROM wishlists WHERE user_id = 1";
+        String sql = "SELECT * FROM wishlists WHERE user_id = ?";
         List<Wishlist> wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
             @Override
             public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
