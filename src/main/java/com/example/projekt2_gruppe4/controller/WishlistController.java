@@ -111,7 +111,7 @@ public class WishlistController {
 
         Wishlist wishlist = wishlists.get(0);
         model.addAttribute("wishlist", wishlist);
-        return "viewSharedWishlist"; // en side der viser ønskelisten
+        return "redirect:/viewSharedWishlist"; // en side der viser ønskelisten
     }
 
 
