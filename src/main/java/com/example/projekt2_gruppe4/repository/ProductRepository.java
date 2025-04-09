@@ -16,7 +16,6 @@ public class ProductRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Hent alle produkter tilknyttet en ønskeliste
     public List<Product> findByWishlistId(int wishlistId) {
         String query = """
             SELECT p.id, p.name, p.description, p.price
@@ -38,20 +37,17 @@ public class ProductRepository {
         });
     }
 
-    // Gem et nyt produkt
     public void save(Product product) {
         String query = "INSERT INTO products (name, description, price) VALUES (?, ?, ?)";
         jdbcTemplate.update(query, product.getName(), product.getDescription(), product.getPrice());
     }
 
-    // Opdater et eksisterende produkt
     public void update(Product updatedProduct) {
         String query = "UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?";
         jdbcTemplate.update(query, updatedProduct.getName(), updatedProduct.getDescription(),
                 updatedProduct.getPrice(), updatedProduct.getId());
     }
 
-    // Hent alle produkter fra databasen
     public List<Product> getAllProducts() {
         String query = "SELECT * FROM products";
         return jdbcTemplate.query(query, new RowMapper<Product>() {

@@ -32,7 +32,7 @@ public class WishlistController {
         if (loggedInUser == null) {
             return "redirect:/index";
         }
-        String shareToken = UUID.randomUUID().toString().substring(0, 8); // eks: "abc123ef"
+        String shareToken = UUID.randomUUID().toString().substring(0, 8);
 
         String insertQuery = "INSERT INTO wishlists (name, description, pincode, user_id) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertQuery, title, description, pincode, loggedInUser.getId());
@@ -48,12 +48,10 @@ public class WishlistController {
     public String viewWishlist(@PathVariable("id") int id, Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
-        // Tjek om brugeren er logget ind.
         if (loggedInUser == null) {
-            return "redirect:/index"; // Redirect til loginside, hvis ikke logget ind.
+            return "redirect:/index";
         }
 
-        // Hent ønskelisten fra databasen for en given bruger og ID.
         String selectQuery = "SELECT * FROM wishlists WHERE id = ? AND user_id = ?";
         List<Wishlist> wishlists = jdbcTemplate.query(selectQuery, new Object[]{id, loggedInUser.getId()}, new RowMapper<Wishlist>() {
             @Override
@@ -68,15 +66,14 @@ public class WishlistController {
             }
         });
 
-        // Hvis listen er tom, returner til ønskelisteoversigten.
         if (wishlists.isEmpty()) {
             return "redirect:/wishlists";
         }
 
         Wishlist wishlist = wishlists.get(0);
-        model.addAttribute("wishlist", wishlist); // Tilføj data til Thymeleaf-modellen.
+        model.addAttribute("wishlist", wishlist);
 
-        return "viewWishlist"; // Return viewWishlist.html i resources/templates.
+        return "viewWishlist";
     }
 
     @GetMapping("/showWishlist")
@@ -84,10 +81,9 @@ public class WishlistController {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null) {
-            return "redirect:/index"; // Redirect til login, hvis ikke logget ind
+            return "redirect:/index";
         }
 
-        // Hent alle ønskelister for den loggede bruger
         String sql = "SELECT * FROM wishlists WHERE user_id = 1";
         List<Wishlist> wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
             @Override
@@ -102,8 +98,8 @@ public class WishlistController {
             }
         });
 
-        model.addAttribute("wishlists", wishlists); // Tilføj listen til Thymeleaf-model
-        return "showWishlist"; // Returnér showWishlist.html
+        model.addAttribute("wishlists", wishlists);
+        return "showWishlist";
     }
 
 
@@ -112,21 +108,20 @@ public class WishlistController {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null) {
-            return "redirect:/index"; // Redirect til login, hvis ikke logget ind
+            return "redirect:/index";
         }
 
-        // Slet ønskelisten fra databasen
         String deleteQuery = "DELETE FROM wishlists WHERE id = ? AND user_id = ?";
         jdbcTemplate.update(deleteQuery, id, loggedInUser.getId());
 
-        return "redirect:/showWishlist"; // Redirect tilbage til ønskelisteoversigten
+        return "redirect:/showWishlist";
     }
 
 
     @GetMapping("/shared/{token}")
     public String showPincodeForm(@PathVariable("token") String token, Model model) {
         model.addAttribute("token", token);
-        return "enterPincode"; // En side hvor man indtaster pinkoden
+        return "enterPincode";
     }
 
     @PostMapping("/shared")
@@ -150,12 +145,12 @@ public class WishlistController {
 
         if (wishlists.isEmpty()) {
             model.addAttribute("sharedError", "Forkert delingslink eller pinkode");
-            return "index"; // tilbage til forsiden med fejlbesked
+            return "index";
         }
 
         Wishlist wishlist = wishlists.get(0);
         model.addAttribute("wishlist", wishlist);
-        return "viewSharedWishlist?wishlistId=\" + wishlistId"; // en side der viser ønskelisten
+        return "viewSharedWishlist?wishlistId=\" + wishlistId";
     }
 
 

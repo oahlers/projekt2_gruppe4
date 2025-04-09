@@ -15,13 +15,11 @@ public class UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Opretter en ny bruger
     public void createUser(User user) {
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, user.getUsername(), user.getPassword());
     }
 
-    // Finder en bruger baseret på brugernavn
     public User findByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
         try {
@@ -31,7 +29,6 @@ public class UserRepository {
         }
     }
 
-    // RowMapper til at konvertere ResultSet til User-objekt
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
