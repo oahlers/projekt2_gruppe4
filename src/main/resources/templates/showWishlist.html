@@ -16,8 +16,8 @@
     </ul>
 </div>
 
-<div class="wishlist-content-container">
-    <!-- Formularen til at oprette en ønskeliste -->
+<div class="main-container">
+    <!-- Left side - Create wishlist form -->
     <div class="createWishlist-container">
         <form th:action="@{/wishlists/saveCreateWishlist}" method="post">
             <label for="title">Wishlist Title:</label><br>
@@ -32,14 +32,11 @@
             <button type="submit">Create Wishlist</button>
         </form>
     </div>
-    <div class="wishlist-content-container">
-        <!-- Form to create a wishlist -->
-        <div class="createWishlist-container">
-            <!-- Your existing form code -->
-        </div>
 
-        <!-- Display all wishlists -->
-        <div class="wishlist-container">
+    <!-- Right side - Wishlist display -->
+    <div class="wishlist-display-container">
+        <h1>My Wishlists</h1>
+        <div class="wishlist-grid">
             <div th:each="wishlist : ${wishlists}" class="wishlist-card">
                 <h2 th:text="${wishlist.title}">Wishlist Title</h2>
                 <p th:text="${wishlist.description}">Description</p>
@@ -55,6 +52,7 @@
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>
