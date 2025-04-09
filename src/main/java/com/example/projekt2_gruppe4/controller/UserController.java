@@ -42,6 +42,10 @@ public class UserController {
     public String register(@RequestParam("username") String username,
                            @RequestParam("password") String password,
                            Model model) {
+        if (password.length() < 8) {
+            model.addAttribute("registerError", "Adgangskoden skal være mindst 8 tegn.");
+            return "login";
+        }
         User existingUser = userRepository.findByUsername(username);
         if (existingUser != null) {
             model.addAttribute("registerError", "Username already exists");
