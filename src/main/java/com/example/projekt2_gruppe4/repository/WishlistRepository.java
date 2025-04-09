@@ -40,7 +40,7 @@ public class WishlistRepository {
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
-                product.setWishlistId(rs.getInt("wishlist_id"));  // Sørg for feltet eksisterer i Product
+                product.setWishlistId(rs.getInt("wishlist_id"));
                 return product;
             }
         });

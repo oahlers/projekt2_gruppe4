@@ -75,11 +75,10 @@ public class PageController {
         return "index";
     }
 
-    // Brug af getAllProducts i en metode
     @GetMapping("/all-products")
     public String showAllProducts(Model model) {
-        List<Product> products = productRepo.getAllProducts(); // Hent alle produkter
-        model.addAttribute("products", products); // Tilføj produkter til modellen
-        return "allProductsPage"; // Dit view-navn
+        List<Product> products = productRepo.getAllProducts();
+        model.addAttribute("products", products);
+        return "allProductsPage";
     }
 }
