@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/style.css" rel="stylesheet" th:href="@{/static/style.css}">
     <title>Create Product</title>
 </head>
 <body>
-<h1>Opret et nyt produkt til ønskelisten</h1>
-
+<h1>Add a new product to the list</h1>
 <form action="/products/add" method="post">
     <input type="hidden" name="wishlistId" value="${wishlistId}" />
 
@@ -27,7 +27,7 @@
 
 
 <a href="/showWishlist/" th:href="@{/wishlist/${wishlistId}}">
-    <button>Tilbage</button>
+    <button>Back</button>
 </a>
 </body>
 </html>
