@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Wishlist</title>
-
-    <!-- ❌ FJERN href="/static/style.css" -->
-    <!-- ✅ Brug kun th:href med korrekt sti uden "/static" -->
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+<div class="navbarTop">
+    <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/contactUs}" class="active">Contact</a></li>
+        <li><a th:href="@{/about}">About</a></li>
+    </ul>
+    <div class="welcomeBox" th:if="${loggedInUser != null}">
+        Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+    </div>
+</div>
 <div class="container">
     <header>
         <h1>Wishlist: <span th:text="${wishlist.title}"></span></h1>

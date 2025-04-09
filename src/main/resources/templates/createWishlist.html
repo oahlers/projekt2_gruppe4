@@ -6,6 +6,16 @@
     <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
 </head>
 <body>
+<div class="navbarTop">
+    <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/contactUs}" class="active">Contact</a></li>
+        <li><a th:href="@{/about}">About</a></li>
+    </ul>
+    <div class="welcomeBox" th:if="${loggedInUser != null}">
+        Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+    </div>
+</div>
 
 </body>
 </html>
