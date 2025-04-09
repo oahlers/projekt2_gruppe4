@@ -5,7 +5,7 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
     background-color: #f4f4f4;
 }
@@ -142,7 +142,7 @@ textarea {
     resize: none;
 }
 
-.wishlist-container, .createWishlist-container {
+.wishlist-container {
     outline: 2px solid #ccc;
     margin-top: 40px;
     display: flex;
@@ -153,7 +153,7 @@ textarea {
     background-color: whitesmoke;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 70%;
+    width: 100%;  /* Juster bredden til 100% */
 }
 
 .wishlist-card {
@@ -163,7 +163,8 @@ textarea {
     padding: 20px;
     margin: 20px;
     transition: transform 0.2s, box-shadow 0.2s;
-    height: 20vh;
+    height: auto;  /* Ændre højde til auto */
+    min-height: 150px;  /* Minimum højde */
 }
 
 .button-group {
@@ -173,15 +174,16 @@ textarea {
 
 .wishlist-content-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    gap: 40px;
+    gap: 20px;
     padding: 20px;
+    width: 100%;
 }
 
 .container {
     display: flex;
-    flex-direction: row; /* ← sørg for at de ligger side om side */
+    flex-direction: row;
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
@@ -190,5 +192,3 @@ textarea {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
-
-

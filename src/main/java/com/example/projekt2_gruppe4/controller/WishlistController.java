@@ -79,6 +79,50 @@ public class WishlistController {
         return "viewWishlist"; // Return viewWishlist.html i resources/templates.
     }
 
+    @GetMapping("/showWishlist")
+    public String showWishlist(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return "redirect:/index"; // Redirect til login, hvis ikke logget ind
+        }
+
+        // Hent alle ønskelister for den loggede bruger
+        String sql = "SELECT * FROM wishlists WHERE user_id = ?";
+        List<Wishlist> wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
+            @Override
+            public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Wishlist wishlist = new Wishlist();
+                wishlist.setId(rs.getInt("id"));
+                wishlist.setTitle(rs.getString("name"));
+                wishlist.setDescription(rs.getString("description"));
+                wishlist.setPincode(rs.getString("pincode"));
+                wishlist.setUserId(rs.getInt("user_id"));
+                return wishlist;
+            }
+        });
+
+        model.addAttribute("wishlists", wishlists); // Tilføj listen til Thymeleaf-model
+        return "showWishlist"; // Returnér showWishlist.html
+    }
+
+
+    @GetMapping("/removeWishlist")
+    public String removeWishlist(@RequestParam("id") int id, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return "redirect:/index"; // Redirect til login, hvis ikke logget ind
+        }
+
+        // Slet ønskelisten fra databasen
+        String deleteQuery = "DELETE FROM wishlists WHERE id = ? AND user_id = ?";
+        jdbcTemplate.update(deleteQuery, id, loggedInUser.getId());
+
+        return "redirect:/showWishlist"; // Redirect tilbage til ønskelisteoversigten
+    }
+
+
     @GetMapping("/shared/{token}")
     public String showPincodeForm(@PathVariable("token") String token, Model model) {
         model.addAttribute("token", token);
