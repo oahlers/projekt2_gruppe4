@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Wishlist</title>
-    <link href="/static/style.css" rel="stylesheet" th:href="@{/static/style.css}">
+
+    <!-- ❌ FJERN href="/static/style.css" -->
+    <!-- ✅ Brug kun th:href med korrekt sti uden "/static" -->
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
 <div class="container">
@@ -20,7 +23,9 @@
     <h2>Handlinger</h2>
     <ul class="actions">
         <li><a href="/showWishlist" class="button">Back to wishlists</a></li>
-        <a th:href="@{/products/createProduct(wishlistId=${wishlist.id})}" class="button">Add products</a>
+
+        <!-- ✅ Korrekt formateret med '(param=${})' syntaks -->
+        <li><a th:href="@{'/products/createProduct'(wishlistId=${wishlist.id})}" class="button">Add products</a></li>
     </ul>
 </div>
 </body>
