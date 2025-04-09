@@ -20,7 +20,7 @@
     <h2>Handlinger</h2>
     <ul class="actions">
         <li><a href="/showWishlist" class="button">Back to wishlists</a></li>
-        <li><a href="/products/add" class="button">Add products</a></li>
+        <a th:href="@{/products/createProduct(wishlistId=${wishlist.id})}" class="button">Add products</a>
     </ul>
 </div>
 </body>

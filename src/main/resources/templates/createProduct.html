@@ -8,20 +8,23 @@
 <body>
 <h1>Opret et nyt produkt til ønskelisten</h1>
 
-<form action="/saveCreateProduct" method="post">
-    <input type="hidden" name="wishlistId" th:value="${wishlistId}" />
+<form action="/products/add" method="post">
+    <input type="hidden" name="wishlistId" value="${wishlistId}" />
 
-    <label for="name">Produktnavn:</label>
-    <input type="text" name="name" id="name" required><br>
+    <label for="name">Product Name:</label>
+    <input type="text" name="name" id="name" required />
 
-    <label for="description">Beskrivelse:</label>
-    <textarea name="description" id="description" required></textarea><br>
+    <label for="description">Description:</label>
+    <input type="text" name="description" id="description" required />
 
-    <label for="price">Pris:</label>
-    <input type="number" name="price" id="price" step="0.01" required><br>
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price" required />
 
-    <button type="submit">Gem Produkt</button>
+    <button type="submit">Add Product</button>
 </form>
+
+
+
 
 <a href="/showWishlist/" th:href="@{/wishlist/${wishlistId}}">
     <button>Tilbage</button>
