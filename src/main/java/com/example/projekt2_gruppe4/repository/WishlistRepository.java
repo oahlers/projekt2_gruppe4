@@ -17,7 +17,6 @@ public class WishlistRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Hent en ønskeliste baseret på ID
     public Wishlist findById(int id) {
         String query = "SELECT * FROM wishlist WHERE id = ?";
         List<Wishlist> wishlists = jdbcTemplate.query(query, ps -> ps.setInt(1, id), new RowMapper<Wishlist>() {
@@ -31,7 +30,6 @@ public class WishlistRepository {
         return wishlists.isEmpty() ? null : wishlists.get(0);
     }
 
-    // Hent produkter til en ønskeliste
     public List<Product> findProductsByWishlistId(int wishlistId) {
         String query = "SELECT * FROM product WHERE wishlist_id = ?";
         return jdbcTemplate.query(query, ps -> ps.setInt(1, wishlistId), new RowMapper<Product>() {
@@ -48,7 +46,6 @@ public class WishlistRepository {
         });
     }
 
-    // Gem en ønskeliste
     public void save(Wishlist wishlist) {
         String query = "INSERT INTO wishlist (title, description, pincode, user_id) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(query, wishlist.getTitle(), wishlist.getDescription(), wishlist.getPincode(), wishlist.getUserId());
