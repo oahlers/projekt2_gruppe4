@@ -28,12 +28,18 @@
         <p><strong>ID:</strong> <span th:text="${wishlist.id}"></span></p>
     </div>
     <br>
-    <h2>Handlinger</h2>
+    <h2>Actions:</h2>
     <ul class="actions">
         <li><a href="/showWishlist" class="button">Back to wishlists</a></li>
 
         <li><a th:href="@{'/products/createProduct'(wishlistId=${wishlist.id})}" class="button">Add products</a></li>
     </ul>
 </div>
+
+<div class="footer">
+    <p>&copy; 2025 Wishcloud</p>
+    <p>Projekt 2 - Gruppe 4</p>
+</div>
+
 </body>
 </html>
