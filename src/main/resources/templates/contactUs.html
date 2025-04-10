@@ -18,6 +18,9 @@
     </ul>
     <div class="welcomeBox" th:if="${loggedInUser != null}">
         Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Log out</button>
+        </form>
     </div>
 </div>
 

@@ -15,10 +15,13 @@
     </ul>
     <div class="welcomeBox" th:if="${loggedInUser != null}">
         Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Log out</button>
+        </form>
     </div>
 </div>
 
-<div class="wishlist-content-container">
+<div class="content-container">
     <div class="createWishlist-container">
         <form th:action="@{/wishlists/saveCreateWishlist}" method="post">
         <label for="title">Wishlist Title:</label><br>
