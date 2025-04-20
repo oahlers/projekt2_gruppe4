@@ -29,7 +29,9 @@ public class UserController {
                         Model model) {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
+            System.out.println("Logged in user: " + user.getUsername() + ", ID: " + user.getId());
             session.setAttribute("loggedInUser", user);
+            System.out.println("Session set - loggedInUser ID: " + ((User) session.getAttribute("loggedInUser")).getId()); // Log session efter set
             model.addAttribute("loggedInUser", user);
             return "redirect:/showWishlist";
         } else {

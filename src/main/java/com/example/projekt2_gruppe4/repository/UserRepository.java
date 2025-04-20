@@ -28,14 +28,15 @@ public class UserRepository {
             return null;
         }
     }
-
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
-            user.setId(rs.getInt("id"));
+            int userId = rs.getInt("id");
+            user.setId(userId);
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
+            System.out.println("Mapped user: " + user.getUsername() + ", ID: " + user.getId());
             return user;
         }
     }

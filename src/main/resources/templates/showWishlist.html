@@ -57,7 +57,25 @@
     <p>&copy; 2025 Wishcloud</p>
     <p>Projekt 2 - Gruppe 4</p>
 </div>
-
+<div class="wishlist-container">
+    <div th:if="${wishlists == null or wishlists.isEmpty()}">
+        <p>Du har ingen ønskelister endnu.</p>
+    </div>
+    <div th:unless="${wishlists == null or wishlists.isEmpty()}">
+        <div th:each="wishlist : ${wishlists}" class="wishlist-card">
+            <h2 th:text="${wishlist.title}">Wishlist Title</h2>
+            <p th:text="${wishlist.description}">Description</p>
+            <div class="button-group">
+                <a th:href="@{/editWishlist(id=${wishlist.id})}">
+                    <button>Edit</button>
+                </a>
+                <a th:href="@{/removeWishlist(id=${wishlist.id})}" onclick="return confirm('Are you sure you want to remove this wishlist?');">
+                    <button>Remove</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

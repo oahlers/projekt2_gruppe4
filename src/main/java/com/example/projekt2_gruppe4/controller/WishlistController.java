@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -75,33 +76,43 @@ public class WishlistController {
 
         return "viewWishlist";
     }
-
     @GetMapping("/showWishlist")
     public String showWishlist(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null) {
+            System.out.println("No loggedInUser in session");
             return "redirect:/index";
         }
 
-        String sql = "SELECT * FROM wishlists WHERE user_id = ?";
-        List<Wishlist> wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
-            @Override
-            public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Wishlist wishlist = new Wishlist();
-                wishlist.setId(rs.getInt("id"));
-                wishlist.setTitle(rs.getString("name"));
-                wishlist.setDescription(rs.getString("description"));
-                wishlist.setPincode(rs.getString("pincode"));
-                wishlist.setUserId(rs.getInt("user_id"));
-                return wishlist;
-            }
-        });
+        System.out.println("User ID: " + loggedInUser.getId());
+
+        List<Wishlist> wishlists = null;
+        try {
+            String sql = "SELECT * FROM wishlists WHERE user_id = ?";
+            wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
+                @Override
+                public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    System.out.println("Mapping wishlist row: " + rowNum);
+                    Wishlist wishlist = new Wishlist();
+                    wishlist.setId(rs.getInt("id"));
+                    wishlist.setTitle(rs.getString("name"));
+                    wishlist.setDescription(rs.getString("description"));
+                    wishlist.setPincode(rs.getString("pincode"));
+                    wishlist.setUserId(rs.getInt("user_id"));
+                    System.out.println("Wishlist found: " + wishlist.getTitle());
+                    return wishlist;
+                }
+            });
+            System.out.println("Number of wishlists found: " + (wishlists != null ? wishlists.size() : "null"));
+        } catch (Exception e) {
+            System.err.println("Error querying wishlists: " + e.getMessage());
+            wishlists = new ArrayList<>();
+        }
 
         model.addAttribute("wishlists", wishlists);
         return "showWishlist";
     }
-
 
     @GetMapping("/removeWishlist")
     public String removeWishlist(@RequestParam("id") int id, HttpSession session) {
