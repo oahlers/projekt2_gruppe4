@@ -4,26 +4,23 @@ import java.util.List;
 
 public class Wishlist {
     private int id;
-    private String title;
+    private String name;
     private String description;
     private String pincode;
     private int userId;
+    private String shareToken;
     private List<Product> products;
-    private String shareToken; // 👈 Tilføj denne linje
 
-    // Standard konstruktor
     public Wishlist() {}
 
-    // Konstruktor med parametre
     public Wishlist(int id, String title, String description, String pincode, int userId) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.pincode = pincode;
         this.userId = userId;
     }
 
-    // Getters og setters
     public int getId() {
         return id;
     }
@@ -32,12 +29,12 @@ public class Wishlist {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

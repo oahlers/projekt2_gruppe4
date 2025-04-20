@@ -2,6 +2,7 @@ package com.example.projekt2_gruppe4.controller;
 
 import com.example.projekt2_gruppe4.model.Product;
 import com.example.projekt2_gruppe4.model.User;
+import com.example.projekt2_gruppe4.repository.ProductRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +17,7 @@ public class ProductController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // Viser formularen til at oprette et nyt produkt
     @GetMapping("/add")
     public String showAddProductForm(@RequestParam("wishlistId") int wishlistId, Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -28,11 +30,13 @@ public class ProductController {
         return "createProduct";
     }
 
+    // Tilføjer et nyt produkt til databasen og knytter det til en ønskeliste
     @PostMapping("/add")
     public String addProduct(@RequestParam("name") String name,
                              @RequestParam("description") String description,
                              @RequestParam("price") double price,
                              @RequestParam("wishlistId") int wishlistId) {
+
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);

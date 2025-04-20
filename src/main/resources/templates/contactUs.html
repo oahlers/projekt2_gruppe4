@@ -11,16 +11,12 @@
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/showWishlist}">Show my wishlists</a></li>
-        <li><a th:href="@{/contactUs}" class="active">Contact</a></li>
+        <li th:if="${loggedInUser != null}"><a th:href="@{/wishlists/showWishlist}">Show my wishlists</a></li>
+        <li><a th:href="@{/contactUs}">Contact</a></li>
         <li><a th:href="@{/about}">About</a></li>
-
     </ul>
     <div class="welcomeBox" th:if="${loggedInUser != null}">
         Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="logout-button">Log out</button>
-        </form>
     </div>
 </div>
 

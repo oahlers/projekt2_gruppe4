@@ -4,7 +4,7 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private boolean loggedIn; // Ny felt til at spore login-status
+    private boolean loggedIn;
 
     public User() {}
 
@@ -21,7 +21,6 @@ public class User {
         this.loggedIn = false;
     }
 
-    // Getters og setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getUsername() { return username; }

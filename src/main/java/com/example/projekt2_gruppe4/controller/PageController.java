@@ -22,6 +22,7 @@ public class PageController {
     @Autowired
     ProductRepository productRepo;
 
+    // Viser forsiden og tilføjer den aktuelle bruger til modellen
     @GetMapping("")
     public String mainPage(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -29,6 +30,7 @@ public class PageController {
         return "index";
     }
 
+    // Viser "Om os"-siden og tilføjer den aktuelle bruger til modellen
     @GetMapping("/about")
     public String aboutPage(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -36,6 +38,7 @@ public class PageController {
         return "about";
     }
 
+    // Viser "Kontakt os"-siden og tilføjer den aktuelle bruger til modellen
     @GetMapping("/contactUs")
     public String contactPage(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -43,6 +46,7 @@ public class PageController {
         return "contactUs";
     }
 
+    // Håndterer formularindsendelse fra "Kontakt os"-siden og viser en bekræftelsesbesked
     @PostMapping("/contactUs")
     public String handleContactForm(@RequestParam String name,
                                     @RequestParam String email,
@@ -54,10 +58,10 @@ public class PageController {
         model.addAttribute("contactSuccess", "Thanks for your message, " + name + "! We'll get back to you shortly!.");
         User loggedInUser = (User) session.getAttribute("loggedInUser");
         model.addAttribute("loggedInUser", loggedInUser);
-        return "contactUs"; //
+        return "contactUs";
     }
 
-
+    // Viser ønskelisten og henter alle produkter fra databasen
     @GetMapping("/showWishlist")
     public String showWishListPage(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -68,6 +72,7 @@ public class PageController {
         return "showWishlist";
     }
 
+    // Ekstra indgang til forsiden
     @GetMapping("/index")
     public String index(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -75,10 +80,4 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/all-products")
-    public String showAllProducts(Model model) {
-        List<Product> products = productRepo.getAllProducts();
-        model.addAttribute("products", products);
-        return "allProductsPage";
-    }
 }

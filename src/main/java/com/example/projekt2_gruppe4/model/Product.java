@@ -7,7 +7,6 @@ public class Product {
     private double price;
     private int wishlistId;
 
-    // Getters og setters
     public int getId() {
         return id;
     }

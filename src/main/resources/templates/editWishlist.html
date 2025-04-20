@@ -10,23 +10,20 @@
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/wishlists/showWishlist}">Show my wishlists</a></li>
+        <li th:if="${loggedInUser != null}"><a th:href="@{/wishlists/showWishlist}">Show my wishlists</a></li>
         <li><a th:href="@{/contactUs}">Contact</a></li>
         <li><a th:href="@{/about}">About</a></li>
     </ul>
     <div class="welcomeBox" th:if="${loggedInUser != null}">
         Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="logout-button">Log out</button>
-        </form>
     </div>
 </div>
 
 <div class="content-container">
-    <div class="wishlist-container" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px;">
-        <h1 style="margin-bottom: 10px;">Wishlist: <span th:text="${wishlist.title}">Wishlist Title</span></h1>
-        <p style="margin: 5px 0;"><strong>Description:</strong> <span th:text="${wishlist.description}"></span></p>
-        <p style="margin: 5px 0;"><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
+    <div class="wishlist-container">
+        <h1>Wishlist: <span th:text="${wishlist.name}">Wishlist Title</span></h1>
+        <p><strong>Description:</strong> <span th:text="${wishlist.description}"></span></p>
+        <p><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
     </div>
 
     <div class="products-container">
@@ -46,14 +43,16 @@
         </ul>
     </div>
 
-
-
-    <form th:action="@{/products/add}" method="get">
+    <div class="button-group-center">
+        <form th:action="@{/products/add}" method="get" style="display: inline;">
             <input type="hidden" name="wishlistId" th:value="${wishlist.id}" />
-            <button type="submit" class="add-button">Add Product</button>
+            <button type="submit" class="submit">Add Product</button>
         </form>
+
+        <a th:href="@{/wishlists/showWishlist}" class="back-button">Back to wishlists</a>
     </div>
-</div>
+
+
 
 <div class="footer">
     <p>2025 Wishcloud</p>

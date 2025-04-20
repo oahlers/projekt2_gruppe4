@@ -9,20 +9,18 @@
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/wishlists/showWishlist}" class="active">Show my wishlists</a></li>
+        <li th:if="${loggedInUser != null}"><a th:href="@{/wishlists/showWishlist}">Show my wishlists</a></li>
         <li><a th:href="@{/contactUs}">Contact</a></li>
         <li><a th:href="@{/about}">About</a></li>
     </ul>
     <div class="welcomeBox" th:if="${loggedInUser != null}">
         Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit" class="logout-button">Log out</button>
-        </form>
     </div>
 </div>
 
 <div class="content-container">
     <div class="createWishlist-container">
+        <h2>Create wishlists</h2>
         <form th:action="@{/wishlists/saveCreateWishlist}" method="post">
             <label for="title">Wishlist Title:</label><br>
             <input type="text" id="title" name="title" required><br><br>
@@ -37,9 +35,11 @@
         </form>
     </div>
 
+    <h2>Current wishlists</h2>
+
     <div class="wishlist-container">
         <div th:each="wishlist : ${wishlists}" class="wishlist-card">
-            <h2 th:text="${wishlist.title}">Wishlist Title</h2>
+            <h2 th:text="${wishlist.name}">Wishlist Title</h2>
             <p th:text="${wishlist.description}">Description</p>
             <div class="button-group">
                 <a th:href="@{/wishlists/edit/{id}(id=${wishlist.id})}">
@@ -55,7 +55,7 @@
 </div>
 
 <div class="footer">
-    <p>&copy; 2025 Wishcloud</p>
+    <p>© 2025 Wishcloud</p>
     <p>Projekt 2 - Gruppe 4</p>
 </div>
 

@@ -15,19 +15,23 @@ public class UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // Opretter en ny bruger i databasen
     public void createUser(User user) {
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, user.getUsername(), user.getPassword());
     }
 
+    // Henter en bruger fra databasen baseret på brugernavn
     public User findByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{username}, new UserRowMapper());
         } catch (Exception e) {
-            return null;
+            return null; // Returnerer null, hvis brugeren ikke findes
         }
     }
+
+    // RowMapper til at konvertere ResultSet til et User-objekt
     private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {

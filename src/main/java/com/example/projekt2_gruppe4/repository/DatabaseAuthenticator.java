@@ -19,6 +19,7 @@ public class DatabaseAuthenticator {
         DatabaseAuthenticator.dataSource = dataSource;
     }
 
+    // Udfører autentificering ved at validere brugernavn og adgangskode. Brugt i sammenhæng med at sikrer at brugere logger korrekt ind
     public static int authenticate(String username, String password) throws AuthenticationException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
@@ -30,10 +31,9 @@ public class DatabaseAuthenticator {
                     return resultSet.getInt("id");
                 }
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new AuthenticationException("Invald username and password");
+        throw new AuthenticationException("Invalid username and password");
     }
 }
-

@@ -17,11 +17,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/auth")
-    public String showAuthPage() {
-        return "index";
-    }
-
+    // Behandler loginformularen, validerer brugernavn og adgangskode, og opretter session for brugeren
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
@@ -29,18 +25,16 @@ public class UserController {
                         Model model) {
         User user = userRepository.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            System.out.println("Logged in user: " + user.getUsername() + ", ID: " + user.getId());
             session.setAttribute("loggedInUser", user);
-            System.out.println("Session set - loggedInUser ID: " + ((User) session.getAttribute("loggedInUser")).getId()); // Log session efter set
             model.addAttribute("loggedInUser", user);
             return "redirect:/wishlists/showWishlist";
-
         } else {
             model.addAttribute("loginError", "Invalid username or password");
             return "index";
         }
     }
 
+    // Behandler registreringsformularen, opretter en ny bruger i databasen
     @PostMapping("/register")
     public String register(@RequestParam("username") String username,
                            @RequestParam("password") String password,
@@ -60,11 +54,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/auth";
+    // Referering til index siden efter oprettelse af bruger
+    @GetMapping("/auth")
+    public String showAuthPage() {
+        return "index";
     }
-
-
 }
