@@ -44,15 +44,18 @@
     </div>
 
     <div class="button-group-center">
-        <form th:action="@{/products/add}" method="get" style="display: inline;">
-            <input type="hidden" name="wishlistId" th:value="${wishlist.id}" />
-            <button type="submit" class="submit">Add Product</button>
-        </form>
+        <div>
+            <form th:action="@{/products/add}" method="get">
+                <input type="hidden" name="wishlistId" th:value="${wishlist.id}" />
+                <button type="submit" class="submit">Add Product</button>
+            </form>
+        </div>
 
-        <a th:href="@{/wishlists/showWishlist}" class="back-button">Back to wishlists</a>
+        <div>
+            <a th:href="@{/wishlists/showWishlist}" class="back-button">Back to wishlists</a>
+        </div>
     </div>
-
-
+</div>
 
 <div class="footer">
     <p>2025 Wishcloud</p>

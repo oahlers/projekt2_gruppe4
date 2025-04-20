@@ -64,21 +64,21 @@
 
     <div class="share-wishlist-container">
         <div class="form-section">
-            <h2>Se en ønskeliste</h2>
+            <h2>See a wishlist [WIP]</h2>
             <form th:action="@{/wishlists/shared}" method="post">
                 <div>
-                    <label for="token">Delingslink:</label>
+                    <label for="token">Sharing Link:</label>
                     <input type="text" id="token" name="token" placeholder="Input URL" required>
                 </div>
                 <div>
-                    <label for="pincode">Pinkode:</label>
+                    <label for="pincode">Picode:</label>
                     <input type="text" id="pincode" name="pincode" required>
                 </div>
                 <div>
-                    <button class="submit" type="submit">Se ønskeliste</button>
+                    <button class="submit" type="submit">See wishlist</button>
                 </div>
                 <div th:if="${sharedError}" class="error">
-                    <p th:text="${sharedError}">Forkert token eller pinkode</p>
+                    <p th:text="${sharedError}">Wrong token or pincode</p>
                 </div>
             </form>
         </div>
