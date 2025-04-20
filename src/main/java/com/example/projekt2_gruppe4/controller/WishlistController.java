@@ -1,5 +1,6 @@
 package com.example.projekt2_gruppe4.controller;
 
+import com.example.projekt2_gruppe4.model.Product;
 import com.example.projekt2_gruppe4.model.User;
 import com.example.projekt2_gruppe4.model.Wishlist;
 import jakarta.servlet.http.HttpSession;
@@ -38,7 +39,6 @@ public class WishlistController {
         String insertQuery = "INSERT INTO wishlists (name, description, pincode, user_id) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(insertQuery, title, description, pincode, loggedInUser.getId());
 
-
         String lastInsertIdQuery = "SELECT LAST_INSERT_ID()";
         int wishlistId = jdbcTemplate.queryForObject(lastInsertIdQuery, Integer.class);
 
@@ -68,53 +68,68 @@ public class WishlistController {
         });
 
         if (wishlists.isEmpty()) {
-            return "redirect:/wishlists";
+            return "redirect:/wishlists/showWishlist";
         }
 
         Wishlist wishlist = wishlists.get(0);
         model.addAttribute("wishlist", wishlist);
 
+        String productQuery = "SELECT p.id, p.name, p.description, p.price " +
+                "FROM products p " +
+                "JOIN wishlist_products wp ON wp.product_id = p.id " +
+                "WHERE wp.wishlist_id = ?";
+        List<Product> products = jdbcTemplate.query(productQuery, new Object[]{id}, new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setPrice(rs.getDouble("price"));
+                return product;
+            }
+        });
+
+        model.addAttribute("products", products);
+
         return "viewWishlist";
     }
+
     @GetMapping("/showWishlist")
     public String showWishlist(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null) {
-            System.out.println("No loggedInUser in session");
             return "redirect:/index";
         }
 
-        System.out.println("User ID: " + loggedInUser.getId());
-
-        List<Wishlist> wishlists = null;
+        List<Wishlist> wishlists;
         try {
             String sql = "SELECT * FROM wishlists WHERE user_id = ?";
             wishlists = jdbcTemplate.query(sql, new Object[]{loggedInUser.getId()}, new RowMapper<Wishlist>() {
                 @Override
                 public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    System.out.println("Mapping wishlist row: " + rowNum);
                     Wishlist wishlist = new Wishlist();
                     wishlist.setId(rs.getInt("id"));
                     wishlist.setTitle(rs.getString("name"));
                     wishlist.setDescription(rs.getString("description"));
                     wishlist.setPincode(rs.getString("pincode"));
                     wishlist.setUserId(rs.getInt("user_id"));
-                    System.out.println("Wishlist found: " + wishlist.getTitle());
+                    wishlist.setShareToken(rs.getString("share_token"));
                     return wishlist;
                 }
             });
-            System.out.println("Number of wishlists found: " + (wishlists != null ? wishlists.size() : "null"));
         } catch (Exception e) {
-            System.err.println("Error querying wishlists: " + e.getMessage());
+            System.err.println("Fejl ved hentning af ønskelister: " + e.getMessage());
             wishlists = new ArrayList<>();
         }
 
         model.addAttribute("wishlists", wishlists);
+        model.addAttribute("loggedInUser", loggedInUser);
         return "showWishlist";
     }
 
-    @GetMapping("/removeWishlist")
+    @PostMapping("/removeWishlist")
     public String removeWishlist(@RequestParam("id") int id, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
@@ -125,9 +140,58 @@ public class WishlistController {
         String deleteQuery = "DELETE FROM wishlists WHERE id = ? AND user_id = ?";
         jdbcTemplate.update(deleteQuery, id, loggedInUser.getId());
 
-        return "redirect:/showWishlist";
+        return "redirect:/wishlists/showWishlist";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editWishlistForm(@PathVariable("id") int id, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return "redirect:/index";
+        }
+
+        String selectQuery = "SELECT * FROM wishlists WHERE id = ? AND user_id = ?";
+        List<Wishlist> wishlists = jdbcTemplate.query(selectQuery, new Object[]{id, loggedInUser.getId()}, new RowMapper<Wishlist>() {
+            @Override
+            public Wishlist mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Wishlist wishlist = new Wishlist();
+                wishlist.setId(rs.getInt("id"));
+                wishlist.setTitle(rs.getString("name"));
+                wishlist.setDescription(rs.getString("description"));
+                wishlist.setPincode(rs.getString("pincode"));
+                wishlist.setUserId(rs.getInt("user_id"));
+                return wishlist;
+            }
+        });
+
+        if (wishlists.isEmpty()) {
+            return "redirect:/wishlists/showWishlist";
+        }
+
+        Wishlist wishlist = wishlists.get(0);
+        model.addAttribute("wishlist", wishlist);
+
+        return "editWishlist";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateWishlist(@PathVariable("id") int id,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("pincode") String pincode,
+                                 HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return "redirect:/index";
+        }
+
+        String updateQuery = "UPDATE wishlists SET name = ?, description = ?, pincode = ? WHERE id = ? AND user_id = ?";
+        jdbcTemplate.update(updateQuery, title, description, pincode, id, loggedInUser.getId());
+
+        return "redirect:/wishlists/" + id;
+    }
 
     @GetMapping("/shared/{token}")
     public String showPincodeForm(@PathVariable("token") String token, Model model) {
@@ -161,8 +225,6 @@ public class WishlistController {
 
         Wishlist wishlist = wishlists.get(0);
         model.addAttribute("wishlist", wishlist);
-        return "viewSharedWishlist?wishlistId=\" + wishlistId";
+        return "viewSharedWishlist";
     }
-
-
 }

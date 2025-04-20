@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <title>View Wishlist</title>
+</head>
+<body>
+<div class="navbarTop">
+    <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/wishlists/showWishlist}">Show my wishlists</a></li>
+        <li><a th:href="@{/contactUs}">Contact</a></li>
+        <li><a th:href="@{/about}">About</a></li>
+    </ul>
+    <div class="welcomeBox" th:if="${loggedInUser != null}">
+        Welcome <span th:text="${loggedInUser.username}">USERNAME</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Log out</button>
+        </form>
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="wishlist-container" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px;">
+        <h1 style="margin-bottom: 10px;">Wishlist: <span th:text="${wishlist.title}">Wishlist Title</span></h1>
+        <p style="margin: 5px 0;"><strong>Description:</strong> <span th:text="${wishlist.description}"></span></p>
+        <p style="margin: 5px 0;"><strong>Pincode:</strong> <span th:text="${wishlist.pincode}"></span></p>
+    </div>
+
+    <div class="products-container">
+        <h2>Products in this Wishlist:</h2>
+        <ul>
+            <th:block th:if="${products != null and products.size() > 0}">
+                <li th:each="product : ${products}">
+                    <strong>Product Name:</strong> <span th:text="${product.name}"></span><br>
+                    <strong>Description:</strong> <span th:text="${product.description}"></span><br>
+                    <strong>Price:</strong> <span th:text="${product.price}"></span>
+                    <hr>
+                </li>
+            </th:block>
+            <th:block th:if="${products == null or products.size() == 0}">
+                <p>No products available for this wishlist.</p>
+            </th:block>
+        </ul>
+    </div>
+
+
+
+    <form th:action="@{/products/add}" method="get">
+            <input type="hidden" name="wishlistId" th:value="${wishlist.id}" />
+            <button type="submit" class="add-button">Add Product</button>
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Wishcloud</p>
+    <p>Projekt 2 - Gruppe 4</p>
+</div>
+
+</body>
+</html>

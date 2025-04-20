@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Wishlist</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
-<body>
+<body class="view-wishlist-page">
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
@@ -34,9 +34,7 @@
     <br>
     <h2>Actions:</h2>
     <ul class="actions">
-        <li><a href="/showWishlist" class="button">Back to wishlists</a></li>
-
-        <li><a th:href="@{'/products/createProduct'(wishlistId=${wishlist.id})}" class="button">Add products</a></li>
+        <li><a href="/wishlists/showWishlist" class="button">Back to wishlists</a></li>
     </ul>
 </div>
 

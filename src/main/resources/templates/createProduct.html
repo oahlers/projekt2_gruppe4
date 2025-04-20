@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Tilføj Produkt</title>
-    <link rel="stylesheet" th:href="@{/static/style.css}" />
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
-<body>
+<body class="create-product-page">
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
@@ -24,6 +24,7 @@
 <div class="container">
     <h1>Tilføj produkt til ønskeliste</h1>
 
+    <!-- Form til at tilføje produkt -->
     <form th:action="@{/products/add}" method="post">
         <input type="hidden" name="wishlistId" th:value="${wishlistId}" />
 
@@ -39,10 +40,11 @@
         <button type="submit">Gem produkt</button>
     </form>
 
-    <br>
-    <a th:href="@{/wishlists/{id}(id=${wishlistId})}" class="button">Tilbage til ønskelisten</a>
+    <!-- Tilbage til ønskelisten -->
+    <a th:href="@{/wishlists/edit/{id}(id=${wishlistId})}" class="button">Tilbage til ønskelisten</a>
 </div>
 
+<!-- Footer -->
 <div class="footer">
     <p>&copy; 2025 Wishcloud</p>
     <p>Projekt 2 - Gruppe 4</p>

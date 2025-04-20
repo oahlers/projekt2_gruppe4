@@ -167,7 +167,7 @@ textarea {
     background-color: whitesmoke;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;  /* Juster bredden til 100% */
+    width: 100%;
 }
 
 .wishlist-card  {
@@ -177,8 +177,8 @@ textarea {
     padding: 20px;
     margin: 20px;
     transition: transform 0.2s, box-shadow 0.2s;
-    height: auto;  /* Ændre højde til auto */
-    min-height: 150px;  /* Minimum højde */
+    height: auto;
+    min-height: 150px;
 }
 
 .button-group {
@@ -208,18 +208,146 @@ textarea {
 .content-container {
     margin-top: 100px;
     margin-bottom: 80px;
-    width: 80vh;
+    width: 80vw; /* Change this from 80vh to 80vw for a more responsive width */
     background-color: #ccc;
     border-radius: 30px;
     font-size: 16px;
-    line-height: 1.6;">
+    line-height: 1.6;
     gap: 20px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+@media screen and (max-width: 768px) {
+    .content-container {
+        width: 90vw;
+        margin-top: 50px;
+    }
+
+    .square {
+        width: calc(50% - 40px);
+    }
+
+    .index-container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .square {
+        width: 100%;
+    }
+
+    .content-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+/* CSS kun for createProduct.html */
+.create-product-page .container, .create-product-page .form-container {
+    margin-top: 2cm;  /* Tilføjer luft på toppen som du nævnte */
+}
+
+.create-product-page .form-container, .create-product-page .container {
+    background-color: white;  /* Hvid baggrund for containeren */
+    border-radius: 8px;       /* Runde hjørner */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Let skygge */
+    padding: 20px;
+}
+
+/* Styling af inputfelter og tekstfelt kun på createProduct siden */
+.create-product-page input, .create-product-page textarea {
+    background-color: white;  /* Giver inputfelterne en hvid baggrund */
+    border: 1px solid #ccc;   /* Grå kant rundt om input felterne */
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Knappen */
+.create-product-page .submit, .create-product-page button {
+    background: purple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.create-product-page .submit:hover, .create-product-page button:hover {
+    background: rebeccapurple;
+}
+
+/* Tilbage til ønskeliste link */
+.create-product-page .button-group a {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.create-product-page .button-group a:hover {
+    background: #0056b3;
+}
+
+/* CSS kun for viewWishlist.html */
+.view-wishlist-page .container, .view-wishlist-page .form-container {
+    margin-top: 2cm;  /* Tilføjer luft på toppen som du nævnte */
+}
+
+.view-wishlist-page .form-container, .view-wishlist-page .container {
+    background-color: white;  /* Hvid baggrund for containeren */
+    border-radius: 8px;       /* Runde hjørner */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Let skygge */
+    padding: 20px;
+}
+
+/* Styling af inputfelter og tekstfelt kun på viewWishlist siden */
+.view-wishlist-page input, .view-wishlist-page textarea {
+    background-color: white;  /* Giver inputfelterne en hvid baggrund */
+    border: 1px solid #ccc;   /* Grå kant rundt om input felterne */
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Knappen */
+.view-wishlist-page .submit, .view-wishlist-page button {
+    background: purple;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.view-wishlist-page .submit:hover, .view-wishlist-page button:hover {
+    background: rebeccapurple;
+}
+
+/* Tilbage til ønskeliste link */
+.view-wishlist-page .button-group a {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.view-wishlist-page .button-group a:hover {
+    background: #0056b3;
+}

@@ -1,6 +1,8 @@
 package com.example.projekt2_gruppe4.controller;
 
 import com.example.projekt2_gruppe4.model.Product;
+import com.example.projekt2_gruppe4.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,15 @@ public class ProductController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @GetMapping("/createProduct")
-    public String showCreateProductForm(@RequestParam("wishlistId") int wishlistId, Model model) {
+    @GetMapping("/add")
+    public String showAddProductForm(@RequestParam("wishlistId") int wishlistId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/index";
+        }
+
         model.addAttribute("wishlistId", wishlistId);
+        model.addAttribute("loggedInUser", loggedInUser);
         return "createProduct";
     }
 
@@ -39,7 +47,6 @@ public class ProductController {
         String insertWishlistProductQuery = "INSERT INTO wishlist_products (wishlist_id, product_id) VALUES (?, ?)";
         jdbcTemplate.update(insertWishlistProductQuery, wishlistId, productId);
 
-        return "redirect:/showWishlist?wishlistId=" + wishlistId;
+        return "redirect:/wishlists/edit/" + wishlistId;
     }
 }
-

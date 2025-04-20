@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="/static/style.css" rel="stylesheet" th:href="@{style.css}">
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
 <div class="navbarTop">
     <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/showWishlist}" class="active">Show my wishlists</a></li>
+        <li><a th:href="@{/wishlists/showWishlist}" class="active">Show my wishlists</a></li>
         <li><a th:href="@{/contactUs}">Contact</a></li>
         <li><a th:href="@{/about}">About</a></li>
     </ul>
@@ -24,17 +24,17 @@
 <div class="content-container">
     <div class="createWishlist-container">
         <form th:action="@{/wishlists/saveCreateWishlist}" method="post">
-        <label for="title">Wishlist Title:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
+            <label for="title">Wishlist Title:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" required></textarea><br><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" required></textarea><br><br>
 
-        <label for="pincode">Pincode (4 digits):</label><br>
-        <input type="text" id="pincode" name="pincode" pattern="\d{4}" required><br><br>
+            <label for="pincode">Pincode (4 digits):</label><br>
+            <input type="text" id="pincode" name="pincode" pattern="\d{4}" required><br><br>
 
-        <button type="submit">Create Wishlist</button>
-    </form>
+            <button type="submit">Create Wishlist</button>
+        </form>
     </div>
 
     <div class="wishlist-container">
@@ -42,12 +42,13 @@
             <h2 th:text="${wishlist.title}">Wishlist Title</h2>
             <p th:text="${wishlist.description}">Description</p>
             <div class="button-group">
-                <a th:href="@{/editWishlist(id=${wishlist.id})}">
-                    <button>Edit</button>
+                <a th:href="@{/wishlists/edit/{id}(id=${wishlist.id})}">
+                    <button>View</button>
                 </a>
-                <a th:href="@{/removeWishlist(id=${wishlist.id})}" onclick="return confirm('Are you sure you want to remove this wishlist?');">
-                    <button>Remove</button>
-                </a>
+                <form th:action="@{/wishlists/removeWishlist}" method="post" onsubmit="return confirm('Are you sure you want to remove this wishlist?');">
+                    <input type="hidden" name="id" th:value="${wishlist.id}">
+                    <button type="submit">Remove</button>
+                </form>
             </div>
         </div>
     </div>
@@ -56,25 +57,6 @@
 <div class="footer">
     <p>&copy; 2025 Wishcloud</p>
     <p>Projekt 2 - Gruppe 4</p>
-</div>
-<div class="wishlist-container">
-    <div th:if="${wishlists == null or wishlists.isEmpty()}">
-        <p>Du har ingen ønskelister endnu.</p>
-    </div>
-    <div th:unless="${wishlists == null or wishlists.isEmpty()}">
-        <div th:each="wishlist : ${wishlists}" class="wishlist-card">
-            <h2 th:text="${wishlist.title}">Wishlist Title</h2>
-            <p th:text="${wishlist.description}">Description</p>
-            <div class="button-group">
-                <a th:href="@{/editWishlist(id=${wishlist.id})}">
-                    <button>Edit</button>
-                </a>
-                <a th:href="@{/removeWishlist(id=${wishlist.id})}" onclick="return confirm('Are you sure you want to remove this wishlist?');">
-                    <button>Remove</button>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
 
 </body>

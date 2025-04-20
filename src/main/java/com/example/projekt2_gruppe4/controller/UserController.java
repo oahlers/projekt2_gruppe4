@@ -33,7 +33,8 @@ public class UserController {
             session.setAttribute("loggedInUser", user);
             System.out.println("Session set - loggedInUser ID: " + ((User) session.getAttribute("loggedInUser")).getId()); // Log session efter set
             model.addAttribute("loggedInUser", user);
-            return "redirect:/showWishlist";
+            return "redirect:/wishlists/showWishlist";
+
         } else {
             model.addAttribute("loginError", "Invalid username or password");
             return "index";
