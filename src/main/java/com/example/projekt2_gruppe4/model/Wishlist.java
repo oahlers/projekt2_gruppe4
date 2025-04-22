@@ -13,7 +13,7 @@ public class Wishlist {
 
     public Wishlist() {}
 
-    public Wishlist(int id, String title, String description, String pincode, int userId) {
+    public Wishlist(int id, String name, String description, String pincode, int userId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -59,14 +59,6 @@ public class Wishlist {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     public String getShareToken() {
